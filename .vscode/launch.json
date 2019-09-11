@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DriverMatriks",
+            "request": "launch",
+            "mainClass": "DriverMatriks"
+        }
+    ]
+}
