@@ -153,7 +153,13 @@ public class matriks {
 
     }
 
-
+    public void TukerBaris(int a, int b) {
+        for (int i=1;i<=this.kolom;i++) {
+            this.Mat[0][i] = this.Mat[a][i];
+            this.Mat[a][i] = this.Mat[b][i];
+            this.Mat[b][i] = this.Mat[0][i];
+        }
+    }
 
 }
 // javac *.java && java MainProg
