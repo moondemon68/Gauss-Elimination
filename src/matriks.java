@@ -347,5 +347,44 @@ public class matriks {
         }
     }
 
+    //Fungsi untuk mengembalikan determinan matriks persegi yang akan digunakan untuk kofaktor
+    public double detMatriksEx(int a, int b) {
+        matriks ret = new matriks();
+        ret.baris = this.baris - 1;
+        ret.kolom = this.kolom - 1;
+        int x = 1, y = 1;
+        for (int i = 1; i <= this.baris; i++) {
+            if (i == a) continue;
+            for (int j = 1; j <= this.kolom; j++) {
+                if (j == b) continue;
+                ret.Mat[x][y++] = this.Mat[i][j];
+            }
+            y = 1;
+            x++;
+        }
+        return ret.Determinant();
+    }
+
+    //Fungsi untuk menhasilkan matriks kofaktor
+    public matriks buatKofaktor() {
+        matriks ret = new matriks();
+        ret.baris = this.baris;
+        ret.kolom = this.kolom;
+        for (int i = 1; i <= ret.baris; i++) {
+            for (int j = 1; j <= ret.kolom; j++) {
+                Double cur = 1.0;
+                if ((i + j) % 2 == 1) cur *= -1;
+                ret.Mat[i][j] = cur * detMatriksEx(i, j);
+            }
+        }
+        return ret;
+    }
+
+    //fungsi untuk menghasilkan matriks adjoin
+    public matriks buatAdjoin() {
+        matriks ret = this.buatKofaktor();
+        return ret.Transpose();
+    }
+
 }
 // javac *.java && java MainProg

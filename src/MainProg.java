@@ -73,7 +73,14 @@ class MainProg {
                 System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
                 int file = in.nextInt();
                 if (file == 1) {
-                    System.out.print("Masukkan Nama File : ");
+                    try {
+                        System.out.print("Masukkan Nama File : ");
+                        M.BacaFileMatriks();
+                        matriks hasil = M.buatKofaktor();
+                        hasil.TulisMatriks();
+                    } catch(Exception e) {
+                        System.out.println(e);
+                    }
                 } else {
                     System.out.println("keyboard");
                     //BacaMatriks(M);
