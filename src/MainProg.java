@@ -44,6 +44,8 @@ class MainProg {
                         M.TulisMatriks();
                         M.EchelonForm();
                         M.TulisMatriks();
+                        M.ReducedEchelonForm();
+                        M.TulisMatriks();
                     } catch(Exception e) {
                         System.out.println("Terjadi kesalahan dalam nama file");
                     }
