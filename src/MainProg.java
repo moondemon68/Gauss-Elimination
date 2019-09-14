@@ -30,9 +30,55 @@ class MainProg {
                 System.out.println("file");
             } else {
                 System.out.println("keyboard");
+                //BacaMatriks(M);
             }
-        } else {
-            System.out.println(menu);
+        } else if (menu == 2) {
+            System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.println("file");
+            } else {
+                System.out.println("keyboard");
+                //BacaMatriks(M);
+            }
+        } else if (menu == 3) {
+            System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.println("file");
+            } else {
+                System.out.println("keyboard");
+                //BacaMatriks(M);
+            }
+        } else if (menu == 4) {
+            System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.println("file");
+            } else {
+                System.out.println("keyboard");
+                //BacaMatriks(M);
+            }
+        } else if (menu == 5) {
+            System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.println("file");
+            } else {
+                System.out.println("keyboard");
+                //BacaMatriks(M);
+            }
+        } else if (menu == 6) {
+            System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.println("file");
+            } else {
+                System.out.println("keyboard");
+                //BacaMatriks(M);
+            }
+        } else if (menu == 7) {
+            System.exit(0);
         }
     }
 }
