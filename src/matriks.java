@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.*;
 
 public class matriks {
@@ -6,7 +7,7 @@ public class matriks {
     int kolom;
     double [][] Mat = new double[105][105];
 
-    //Definisi Tipe Data matriks
+    //Definisi & Konstruktor Tipe Data matriks
     matriks() {
         for (int i = 1; i <= 100; i++) {
             for (int j = 1; j <= 100; j++) {
@@ -28,7 +29,32 @@ public class matriks {
         this.kolom = in.nextInt();
 
         for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom; j++ ){
+            for(int j=1; j<=this.kolom+1; j++ ){
+                this.Mat[i][j] = in.nextDouble();
+            }
+        }
+    }
+    public void BacaMatriksFile(String filename){
+        //File file = new File(filename);
+        Scanner in = new Scanner (filename);
+        this.baris = in.nextInt();
+        this.kolom = in.nextInt();
+        for(int i=1; i<=this.baris; i++){
+            for(int j=1; j<=this.kolom+1; j++){
+                this.Mat[i][j] = in.nextDouble();
+            }
+        }
+    }
+    //Method untuk baca matriks persegi
+    public void BacaMatriksPersegi(){
+        
+        Scanner in = new Scanner (System.in);
+
+        System.out.println("Masukkan jumlah baris dan kolom: ");
+        this.baris = in.nextInt();
+        this.kolom = this.baris;
+        for(int i=1; i<=this.baris; i++){
+            for(int j=1; j<=this.kolom+1; j++ ){
                 this.Mat[i][j] = in.nextDouble();
             }
         }
@@ -38,7 +64,7 @@ public class matriks {
     public void TulisMatriks(){
 
         for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom; j++){
+            for(int j=1; j<=this.kolom+1; j++){
                 System.out.print(this.Mat[i][j] + " ");
             }
             System.out.println();
@@ -49,3 +75,4 @@ public class matriks {
 
     
 }
+// javac *.java && java MainProg
