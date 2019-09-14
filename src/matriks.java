@@ -237,5 +237,58 @@ public class matriks {
             this.Mat[a][i] = this.Mat[a][i] + this.Mat[b][i] * x;
         }
     }
+
+    //Method untuk mengubah matriks hasil OBE (sampai Echelon Form)
+    public void EchelonForm() {
+        for (int i=1;i<=this.baris;i++) {
+            if (this.Mat[i][i] == 0) {
+                for (int j=i+1;j<=this.baris;j++) {
+                    if (this.Mat[j][i] != 0) {
+                        this.TukerBaris(i, j);
+                        break;
+                    }
+                }
+            }
+            this.KaliBaris(i, 1/this.Mat[i][i]);
+            for (int j=i+1;j<=this.baris;j++) {
+                this.TambahBaris(j, i, -1 * this.Mat[j][i] / this.Mat[i][i]);
+            }
+        }
+    }
+
+    //Method untuk mengubah matriks menjadi reduced echelon form
+    public void ReducedEchelonForm() {
+        this.EchelonForm();
+        for (int i=this.baris;i>=1;i--) {
+            for (int j=i-1;j>=1;j--) {
+                this.TambahBaris(j, i, -1 * this.Mat[j][i]);
+            }
+        }
+    }
+
+    //Fungsi yang mengembalikan nilai determinan sebuah matriks persegi
+    public double Determinant() {
+        double ret = 1;
+        for (int i=1;i<=this.baris;i++) {
+            if (this.Mat[i][i] == 0) {
+                for (int j=i+1;j<=this.baris;j++) {
+                    if (this.Mat[j][i] != 0) {
+                        this.TukerBaris(i, j);
+                        ret *= -1;
+                        break;
+                    }
+                }
+            }
+            ret *= this.Mat[i][i];
+            this.KaliBaris(i, 1/this.Mat[i][i]);
+            for (int j=i+1;j<=this.baris;j++) {
+                this.TambahBaris(j, i, -1 * this.Mat[j][i] / this.Mat[i][i]);
+            }
+        }
+        for (int i=1;i<=this.baris;i++) {
+            ret *= this.Mat[i][i];
+        }
+        return ret;
+    }
 }
 // javac *.java && java MainProg
