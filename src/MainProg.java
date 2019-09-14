@@ -98,7 +98,8 @@ class MainProg {
                     System.out.print("Masukkan Nama File : ");
                 } else {
                     System.out.println("keyboard");
-                    //BacaMatriks(M);
+                    M.bacaInterpolasi();
+                    M.TulisMatriks();
                 }
             } else if (menu == 7) {
                 System.exit(0);
