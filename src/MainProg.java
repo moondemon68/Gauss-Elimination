@@ -31,6 +31,7 @@ class MainProg {
             } else {
                 System.out.println("keyboard");
                 M.BacaMatriks();
+                M.TulisMatriks();
             }
         } else if (menu == 2) {
             System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
