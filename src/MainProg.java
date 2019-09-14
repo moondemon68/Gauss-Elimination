@@ -99,7 +99,7 @@ class MainProg {
                         M.bacaInterpolasiFile();
                         M.TulisMatriks();
                     } catch(Exception e) {
-                        System.out.println("Terjadi kesalahan dalam nama file");
+                        System.out.println(e);
                     }
                 } else {
                     System.out.println("keyboard");
