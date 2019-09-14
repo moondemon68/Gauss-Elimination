@@ -42,13 +42,7 @@ class MainProg {
                     try {
                         M.BacaFileMatriks();
                         M.TulisMatriks();
-                        System.out.println();
-                        M.EchelonForm();
-                        M.TulisMatriks();
-                        System.out.println();
-                        M.ReducedEchelonForm();
-                        M.TulisMatriks();
-                        System.out.println();
+                        M.Crammer();
                     } catch(Exception e) {
                         System.out.println(e);
                     }

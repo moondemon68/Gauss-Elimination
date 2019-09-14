@@ -224,6 +224,8 @@ public class matriks {
         }
     }
 
+
+
     //Method untuk mengalikan baris a sebesar x kali
     public void KaliBaris(int a, double x) {
         for (int i=1;i<=this.kolom;i++) {
@@ -308,5 +310,52 @@ public class matriks {
         }
         return ret;
     }
+
+    //Fungsi untuk menghasilkan matriks persegi dari suatu augmented matriks
+    //yang diubah kolom ke-a nya dengan kolom paling kanan (digunakan untuk Crammer)
+    public matriks MatrixKolom(int a) {
+        matriks ret = new matriks();
+        ret.baris = this.baris;
+        ret.kolom = this.kolom - 1;
+        for (int i = 1; i <= ret.baris; i++) {
+            for (int j = 1; j <= ret.kolom; j++) {
+                if (j == a) {
+                    ret.Mat[i][j] = this.Mat[i][this.kolom];
+                } else {
+                    ret.Mat[i][j] = this.Mat[i][j];
+                }
+            }
+        }
+        return ret;
+    }
+
+    //Method untuk melakukan kaidah crammer
+    //I.S : Augmented Matrix
+    public void Crammer() {
+        matriks persegi = new matriks();
+        persegi.baris = this.baris;
+        persegi.kolom = this.kolom - 1;
+
+        for (int i = 1; i <= persegi.baris; i++) {
+            for (int j = 1; j <= persegi.kolom; j++) {
+                persegi.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+
+        Double detPersegi = persegi.Determinant();
+
+        if (detPersegi == 0 || detPersegi.isNaN()) {
+            System.out.println("Tidak ada solusi");
+            return;
+        }
+
+        for (int i = 1; i <= persegi.kolom; i++) {
+            matriks persegiKeI = MatrixKolom(i);
+            Double curDet = persegiKeI.Determinant();
+            System.out.print("Solusi x" + i + " adalah ");
+            System.out.printf("%.2f\n", curDet / detPersegi);
+        }
+    }
+
 }
 // javac *.java && java MainProg
