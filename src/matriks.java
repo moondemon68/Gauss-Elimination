@@ -110,6 +110,7 @@ public class matriks {
 
     }
 
+    // Fungsi untuk mengeluarkan hasil transpos matriks
     public matriks Transpose(){
 
         matriks transposeM = new matriks();
@@ -123,7 +124,7 @@ public class matriks {
         }
 
         return transposeM;
-        
+
     }
 
 
