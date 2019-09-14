@@ -155,6 +155,7 @@ public class matriks {
         }
     }
 
+    // Method untuk membaca interpolasi lewat file
     public void bacaInterpolasiFile() throws Exception {
         Scanner in = new Scanner (System.in);
         String namaFile = in.nextLine();
