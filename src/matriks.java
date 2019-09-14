@@ -6,12 +6,12 @@ public class matriks {
 
     int baris;
     int kolom;
-    double [][] Mat = new double[105][105];
+    double [][] Mat = new double[205][205];
 
     //Definisi & Konstruktor Tipe Data matriks
     matriks() {
-        for (int i = 1; i <= 100; i++) {
-            for (int j = 1; j <= 100; j++) {
+        for (int i = 1; i <= 200; i++) {
+            for (int j = 1; j <= 200; j++) {
                 this.Mat[i][j] = -999;
             }
         }
@@ -35,17 +35,7 @@ public class matriks {
             }
         }
     }
-    public void BacaMatriksFile(String filename){
-        //File file = new File(filename);
-        Scanner in = new Scanner (filename);
-        this.baris = in.nextInt();
-        this.kolom = in.nextInt();
-        for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom+1; j++){
-                this.Mat[i][j] = in.nextDouble();
-            }
-        }
-    }
+
     //Method untuk baca matriks persegi
     public void BacaMatriksPersegi(){
 
@@ -224,6 +214,8 @@ public class matriks {
         }
     }
 
+
+
     //Method untuk mengalikan baris a sebesar x kali
     public void KaliBaris(int a, double x) {
         for (int i=1;i<=this.kolom;i++) {
@@ -393,12 +385,55 @@ public class matriks {
                 }
             }
         }
-
-        
-
     }
 
 
+    //Fungsi untuk menghasilkan matriks persegi dari suatu augmented matriks
+    //yang diubah kolom ke-a nya dengan kolom paling kanan (digunakan untuk Cramer)
+    public matriks MatrixKolom(int a) {
+        matriks ret = new matriks();
+        ret.baris = this.baris;
+        ret.kolom = this.kolom - 1;
+        for (int i = 1; i <= ret.baris; i++) {
+            for (int j = 1; j <= ret.kolom; j++) {
+                if (j == a) {
+                    ret.Mat[i][j] = this.Mat[i][this.kolom];
+                } else {
+                    ret.Mat[i][j] = this.Mat[i][j];
+                }
+            }
+        }
+        return ret;
+    }
+
+    //Method untuk melakukan kaidah cramer
+    //I.S : Augmented Matrix
+    public void Cramer() {
+        matriks persegi = new matriks();
+        persegi.baris = this.baris;
+        persegi.kolom = this.kolom - 1;
+
+        for (int i = 1; i <= persegi.baris; i++) {
+            for (int j = 1; j <= persegi.kolom; j++) {
+                persegi.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+
+        Double detPersegi = persegi.Determinant();
+
+        if (detPersegi == 0 || detPersegi.isNaN()) {
+            System.out.println("Tidak ada solusi");
+            return;
+        }
+
+        for (int i = 1; i <= persegi.kolom; i++) {
+            matriks persegiKeI = MatrixKolom(i);
+            Double curDet = persegiKeI.Determinant();
+            System.out.print("Solusi x" + i + " adalah ");
+            System.out.printf("%.2f\n", curDet / detPersegi);
+        }
+    }
 
 }
+
 // javac *.java && java MainProg
