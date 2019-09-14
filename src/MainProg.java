@@ -98,6 +98,8 @@ class MainProg {
                 }
             } else if (menu == 7) {
                 System.exit(0);
+            } else {
+                System.out.println("Masukan salah!");
             }
         }
     }
