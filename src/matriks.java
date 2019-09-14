@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class matriks {
 
@@ -19,7 +20,7 @@ public class matriks {
 
     //Method untuk baca matriks
     public void BacaMatriks(){
-        
+
         Scanner in = new Scanner (System.in);
 
         System.out.println("Masukkan jumlah baris: ");
@@ -32,6 +33,19 @@ public class matriks {
                 this.Mat[i][j] = in.nextDouble();
             }
         }
+    }
+
+    //Method untuk baca matriks lewat file
+    public void BacaFileMatriks() throws Exception {
+
+        Scanner in = new Scanner (System.in);
+        String namaFile = in.nextLine();
+        FileReader fr = new FileReader(namaFile);
+        int i;
+        while ((i = fr.read()) != -1) {
+            System.out.print((char) i);
+        }
+        System.out.println();
     }
 
     //Method untuk tulis matriks
@@ -47,5 +61,5 @@ public class matriks {
     }
 
 
-    
+
 }
