@@ -42,7 +42,7 @@ class MainProg {
                     try {
                         M.BacaFileMatriks();
                         M.TulisMatriks();
-                        M.Crammer();
+                        M.Cramer();
                     } catch(Exception e) {
                         System.out.println(e);
                     }

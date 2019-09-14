@@ -35,17 +35,7 @@ public class matriks {
             }
         }
     }
-    public void BacaMatriksFile(String filename){
-        //File file = new File(filename);
-        Scanner in = new Scanner (filename);
-        this.baris = in.nextInt();
-        this.kolom = in.nextInt();
-        for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom+1; j++){
-                this.Mat[i][j] = in.nextDouble();
-            }
-        }
-    }
+
     //Method untuk baca matriks persegi
     public void BacaMatriksPersegi(){
 
@@ -312,7 +302,7 @@ public class matriks {
     }
 
     //Fungsi untuk menghasilkan matriks persegi dari suatu augmented matriks
-    //yang diubah kolom ke-a nya dengan kolom paling kanan (digunakan untuk Crammer)
+    //yang diubah kolom ke-a nya dengan kolom paling kanan (digunakan untuk Cramer)
     public matriks MatrixKolom(int a) {
         matriks ret = new matriks();
         ret.baris = this.baris;
@@ -329,9 +319,9 @@ public class matriks {
         return ret;
     }
 
-    //Method untuk melakukan kaidah crammer
+    //Method untuk melakukan kaidah cramer
     //I.S : Augmented Matrix
-    public void Crammer() {
+    public void Cramer() {
         matriks persegi = new matriks();
         persegi.baris = this.baris;
         persegi.kolom = this.kolom - 1;
