@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class matriks {
 
     double [][] Mat = new double[105][105];
@@ -12,7 +14,7 @@ public class matriks {
     }
 
     //Method untuk baca matriks
-    public void bacaMatriks(matriks M, int kolom, int baris){
+    public void BacaMatriks(matriks M, int kolom, int baris){
         Scanner s = new Scanner (System.in);
         for(int i=1; i<=baris; i++){
             for(int j=1; j<=kolom; j++ ){

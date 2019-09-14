@@ -30,7 +30,7 @@ class MainProg {
                 System.out.println("file");
             } else {
                 System.out.println("keyboard");
-                //BacaMatriks(M);
+                M.BacaMatriks();
             }
         } else if (menu == 2) {
             System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
