@@ -1,3 +1,5 @@
+import java.util.*;
+
 class MainProg {
 
     /*
@@ -17,7 +19,20 @@ class MainProg {
     */
 
     public static void main(String[] args) {
+        Scanner in = new Scanner (System.in);
         matriks M = new matriks();
-        System.out.println("KECOMPILEGAN");
+        System.out.print("Masukin pilihan: ");
+        int menu = in.nextInt();
+        if (menu == 1) {
+            System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.println("file");
+            } else {
+                System.out.println("keyboard");
+            }
+        } else {
+            System.out.println(menu);
+        }
     }
 }
