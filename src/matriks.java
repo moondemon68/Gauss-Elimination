@@ -110,8 +110,27 @@ public class matriks {
 
     }
 
+    // Method untuk membaca interpolasi
+    public void bacaInterpolasi() {
+        Scanner in = new Scanner (System.in);
+        int n = in.nextInt();
+        this.baris = n + 1;
+        this.kolom = n + 2;
+        Double a, b;
+        for (int i = 1; i <= n + 1; i++) {
+            a = in.nextDouble();
+            b = in.nextDouble();
+            Double cur = 1.0;
+            for (int j = 1; j <= n + 1; j++) {
+                this.Mat[i][j] = cur;
+                cur *= a;
+            }
+            this.Mat[i][n + 2] = b;
+        }
+    }
+
     // Fungsi untuk mengeluarkan hasil transpos matriks
-    public matriks Transpose(){
+    public matriks Transpose() {
 
         matriks transposeM = new matriks();
         transposeM.baris = this.kolom;
