@@ -12,7 +12,7 @@ public class matriks {
     matriks() {
         for (int i = 1; i <= 100; i++) {
             for (int j = 1; j <= 100; j++) {
-                this.Mat[i][j] = 0.0;
+                this.Mat[i][j] = -999;
             }
         }
         this.baris=0;
@@ -237,20 +237,36 @@ public class matriks {
         }
     }
 
+    //Fungsi yang mengembalikan indeks angka 1 paling kiri dari baris a
+    public int LeftestOne(int a) {
+        for (int i=1;i<=this.kolom;i++) {
+            if (this.Mat[a][i] == 1) return i;
+        }
+        return -1;
+    }
+
     //Method untuk mengubah matriks hasil OBE (sampai Echelon Form)
     public void EchelonForm() {
+        int geser = 0;
         for (int i=1;i<=this.baris;i++) {
-            if (this.Mat[i][i] == 0) {
+            if (this.Mat[i][i + geser] == 0) {
+                boolean tuker = false;
                 for (int j=i+1;j<=this.baris;j++) {
                     if (this.Mat[j][i] != 0) {
                         this.TukerBaris(i, j);
+                        tuker = true;
                         break;
                     }
                 }
+                if (tuker == false) {
+                    geser++;
+                    i--;
+                    continue;
+                }
             }
-            this.KaliBaris(i, 1/this.Mat[i][i]);
+            this.KaliBaris(i, 1/this.Mat[i][i + geser]);
             for (int j=i+1;j<=this.baris;j++) {
-                this.TambahBaris(j, i, -1 * this.Mat[j][i] / this.Mat[i][i]);
+                this.TambahBaris(j, i, -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser]);
             }
         }
     }
@@ -259,8 +275,10 @@ public class matriks {
     public void ReducedEchelonForm() {
         this.EchelonForm();
         for (int i=this.baris;i>=1;i--) {
+            int palingkiri = this.LeftestOne(i);
+            if (palingkiri == -1) continue;
             for (int j=i-1;j>=1;j--) {
-                this.TambahBaris(j, i, -1 * this.Mat[j][i]);
+                this.TambahBaris(j, i, -1 * this.Mat[j][palingkiri]);
             }
         }
     }

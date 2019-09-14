@@ -42,12 +42,15 @@ class MainProg {
                     try {
                         M.BacaFileMatriks();
                         M.TulisMatriks();
+                        System.out.println();
                         M.EchelonForm();
                         M.TulisMatriks();
+                        System.out.println();
                         M.ReducedEchelonForm();
                         M.TulisMatriks();
+                        System.out.println();
                     } catch(Exception e) {
-                        System.out.println("Terjadi kesalahan dalam nama file");
+                        System.out.println(e);
                     }
                 } else {
                     System.out.println("keyboard");
