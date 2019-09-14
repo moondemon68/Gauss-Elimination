@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - MainProg",
+            "request": "launch",
+            "mainClass": "matriks.MainProg"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - DriverMatriks",
             "request": "launch",
             "mainClass": "DriverMatriks"
