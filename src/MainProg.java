@@ -93,6 +93,12 @@ class MainProg {
                 int file = in.nextInt();
                 if (file == 1) {
                     System.out.print("Masukkan Nama File : ");
+                    try {
+                        M.bacaInterpolasiFile();
+                        M.TulisMatriks();
+                    } catch(Exception e) {
+                        System.out.println("Terjadi kesalahan dalam nama file");
+                    }
                 } else {
                     System.out.println("keyboard");
                     M.bacaInterpolasi();

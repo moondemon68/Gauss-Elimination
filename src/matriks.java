@@ -48,7 +48,7 @@ public class matriks {
     }
     //Method untuk baca matriks persegi
     public void BacaMatriksPersegi(){
-        
+
         Scanner in = new Scanner (System.in);
 
         System.out.println("Masukkan jumlah baris dan kolom: ");
@@ -152,6 +152,48 @@ public class matriks {
                 cur *= a;
             }
             this.Mat[i][n + 2] = b;
+        }
+    }
+
+    public void bacaInterpolasiFile() throws Exception {
+        Scanner in = new Scanner (System.in);
+        String namaFile = in.nextLine();
+        namaFile += ".txt";
+        FileReader fr = new FileReader(namaFile);
+        String str = "";
+        int cc;
+        while ((cc = fr.read()) != -1) {
+            str += (char) cc;
+        }
+        str = str.trim();
+        str += '\n';
+        int n = -1;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '\n') n++;
+        }
+        this.baris = n + 1;
+        this.kolom = n + 2;
+        int x = 1;
+        for (int i = 0; i < str.length(); i++) {
+            String c1 = "", c2 = "";
+            while (str.charAt(i) != ' ') {
+                c1 += str.charAt(i);
+                i++;
+            }
+            while (str.charAt(i) == ' ') i++;
+            while (str.charAt(i) != '\n') {
+                c2 += str.charAt(i);
+                i++;
+            }
+            Double cur = 1.0;
+            Double a = Double.parseDouble(c1);
+            Double b = Double.parseDouble(c2);
+            for (int j = 1; j <= n + 1; j++) {
+                this.Mat[x][j] = cur;
+                cur *= a;
+            }
+            this.Mat[x][n + 2] = b;
+            x++;
         }
     }
 
