@@ -41,6 +41,7 @@ class MainProg {
                     System.out.print("Masukkan Nama File : ");
                     try {
                         M.BacaFileMatriks();
+                        M.TulisMatriks();
                     } catch(Exception e) {
                         System.out.println("Terjadi kesalahan dalam nama file");
                     }

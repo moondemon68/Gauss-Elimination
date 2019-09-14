@@ -43,10 +43,54 @@ public class matriks {
         namaFile += ".txt";
         FileReader fr = new FileReader(namaFile);
         int i;
+        String str = "";
         while ((i = fr.read()) != -1) {
-            System.out.print((char) i);
+            str += (char) i;
         }
-        System.out.println();
+
+        str = str.trim();
+        int row = 1, col = 1;
+        for (i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '\n') {
+                row++;
+            }
+        }
+        i = 0;
+        while (str.charAt(i) != '\n') {
+            if (str.charAt(i) == ' ') {
+                col++;
+                while (str.charAt(i) == ' ') {
+                    i++;
+                }
+            }
+            i++;
+        }
+        this.baris = row;
+        this.kolom = col;
+        String cur = "";
+        int x = 1, y = 1;
+        i = 0;
+        str += '\n';
+        while (i < str.length()) {
+
+            if (str.charAt(i) == ' ') continue;
+
+            while (str.charAt(i) != ' ' && str.charAt(i) != '\n') {
+                cur += str.charAt(i);
+                i++;
+            }
+
+            Double ts = Double.parseDouble(cur);
+
+            this.Mat[x][y++] = Double.parseDouble(cur);
+            cur = "";
+            if (i >= str.length()) break;
+            if (str.charAt(i) == '\n') {
+                x++;
+                y = 1;
+            }
+            i++;
+        }
     }
 
     //Method untuk tulis matriks
