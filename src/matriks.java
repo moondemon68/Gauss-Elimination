@@ -129,7 +129,7 @@ public class matriks {
 
         for (int i = 1; i <= this.baris ; i++) {
             for(int j = 1 ; j <= this.kolom; j++) {
-                System.out.print(this.Mat[i][j] + " ");
+                System.out.printf("%.2f ", this.Mat[i][j]);
             }
             System.out.println();
         }
