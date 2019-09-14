@@ -6,12 +6,12 @@ public class matriks {
 
     int baris;
     int kolom;
-    double [][] Mat = new double[105][105];
+    double [][] Mat = new double[205][205];
 
     //Definisi & Konstruktor Tipe Data matriks
     matriks() {
-        for (int i = 1; i <= 100; i++) {
-            for (int j = 1; j <= 100; j++) {
+        for (int i = 1; i <= 200; i++) {
+            for (int j = 1; j <= 200; j++) {
                 this.Mat[i][j] = -999;
             }
         }
