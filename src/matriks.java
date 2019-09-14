@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.*;
+import java.io.*;
 
 public class matriks {
 
@@ -20,7 +21,7 @@ public class matriks {
 
     //Method untuk baca matriks
     public void BacaMatriks(){
-        
+
         Scanner in = new Scanner (System.in);
 
         System.out.println("Masukkan jumlah baris: ");
@@ -60,11 +61,74 @@ public class matriks {
         }
     }
 
+    //Method untuk baca matriks lewat file
+    public void BacaFileMatriks() throws Exception {
+
+        Scanner in = new Scanner (System.in);
+        String namaFile = in.nextLine();
+        namaFile += ".txt";
+        FileReader fr = new FileReader(namaFile);
+        int i;
+        String str = "";
+        while ((i = fr.read()) != -1) {
+            str += (char) i;
+        }
+
+        str = str.trim();
+        int row = 1, col = 1;
+        // Mencari banyaknya baris
+        for (i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '\n') {
+                row++;
+            }
+        }
+
+        // Mencari banyaknya kolom
+        i = 0;
+        str += '\n';
+        while (str.charAt(i) != '\n') {
+            if (str.charAt(i) == ' ') {
+                col++;
+                while (str.charAt(i) == ' ') {
+                    i++;
+                }
+            }
+            i++;
+        }
+        this.baris = row;
+        this.kolom = col;
+
+        // Melakukan assignment matriks
+        String cur = "";
+        int x = 1, y = 1;
+        i = 0;
+        while (i < str.length()) {
+
+            if (str.charAt(i) == ' ') continue;
+
+            while (str.charAt(i) != ' ' && str.charAt(i) != '\n') {
+                cur += str.charAt(i);
+                i++;
+            }
+
+            Double ts = Double.parseDouble(cur);
+
+            this.Mat[x][y++] = Double.parseDouble(cur);
+            cur = "";
+
+            if (str.charAt(i) == '\n') {
+                x++;
+                y = 1;
+            }
+            i++;
+        }
+    }
+
     //Method untuk tulis matriks
     public void TulisMatriks(){
 
-        for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom+1; j++){
+        for (int i = 1; i <= this.baris ; i++) {
+            for(int j = 1 ; j <= this.kolom; j++) {
                 System.out.print(this.Mat[i][j] + " ");
             }
             System.out.println();
@@ -72,7 +136,24 @@ public class matriks {
 
     }
 
+    // Fungsi untuk mengeluarkan hasil transpos matriks
+    public matriks Transpose(){
 
-    
+        matriks transposeM = new matriks();
+        transposeM.baris = this.kolom;
+        transposeM.kolom = this.baris;
+
+        for(int i = 1; i <= this.kolom ; i++) {
+            for(int j=1; j <= this.baris ; j++) {
+                transposeM.Mat[i][j] = this.Mat[j][i];
+            }
+        }
+
+        return transposeM;
+
+    }
+
+
+
 }
 // javac *.java && java MainProg
