@@ -110,6 +110,22 @@ public class matriks {
 
     }
 
+    public matriks Transpose(){
+
+        matriks transposeM = new matriks();
+        transposeM.baris = this.kolom;
+        transposeM.kolom = this.baris;
+
+        for(int i = 1; i <= this.kolom ; i++) {
+            for(int j=1; j <= this.baris ; j++) {
+                transposeM.Mat[i][j] = this.Mat[j][i];
+            }
+        }
+
+        return transposeM;
+        
+    }
+
 
 
 }
