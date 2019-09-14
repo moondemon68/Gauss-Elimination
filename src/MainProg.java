@@ -67,7 +67,9 @@ class MainProg {
                     System.out.print("Masukkan Nama File : ");
                 } else {
                     System.out.println("keyboard");
-                    //BacaMatriks(M);
+                    M.BacaMatriksPersegi();
+                    M.Inverse();
+                    M.TulisMatriks();
                 }
             } else if (menu == 4) {
                 System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");

@@ -45,7 +45,7 @@ public class matriks {
         this.baris = in.nextInt();
         this.kolom = this.baris;
         for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom+1; j++ ){
+            for(int j=1; j<=this.kolom; j++ ){
                 this.Mat[i][j] = in.nextDouble();
             }
         }
@@ -279,27 +279,114 @@ public class matriks {
     //Fungsi yang mengembalikan nilai determinan sebuah matriks persegi
     public double Determinant() {
         double ret = 1;
-        for (int i=1;i<=this.baris;i++) {
-            if (this.Mat[i][i] == 0) {
-                for (int j=i+1;j<=this.baris;j++) {
-                    if (this.Mat[j][i] != 0) {
-                        this.TukerBaris(i, j);
+        matriks M2 = new matriks(); 
+        M2.baris = this.baris;
+        M2.kolom = this.kolom;
+        for(int i=1; i<=this.baris; i++){
+            for(int j=1; j<=this.kolom; j++){
+                M2.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+
+        for (int i=1;i<=M2.baris;i++) {
+            if (M2.Mat[i][i] == 0) {
+                for (int j=i+1;j<=M2.baris;j++) {
+                    if (M2.Mat[j][i] != 0) {
+                        M2.TukerBaris(i, j);
                         ret *= -1;
                         break;
                     }
                 }
             }
-            ret *= this.Mat[i][i];
-            this.KaliBaris(i, 1/this.Mat[i][i]);
-            for (int j=i+1;j<=this.baris;j++) {
-                this.TambahBaris(j, i, -1 * this.Mat[j][i] / this.Mat[i][i]);
+            ret *= M2.Mat[i][i];
+            M2.KaliBaris(i, 1/M2.Mat[i][i]);
+            for (int j=i+1;j<=M2.baris;j++) {
+                M2.TambahBaris(j, i, -1 * M2.Mat[j][i] / M2.Mat[i][i]);
             }
         }
-        for (int i=1;i<=this.baris;i++) {
-            ret *= this.Mat[i][i];
+        for (int i=1;i<=M2.baris;i++) {
+            ret *= M2.Mat[i][i];
         }
         return ret;
     }
+
+    //Method untuk merubah matriks menjadi balikannya
+    public void Inverse(){
+
+        if(this.Determinant()==0) {System.out.println("Matriks ini tidak memiliki invers.");}
+        else{
+            matriks M2 = new matriks();
+            M2.baris = this.baris;
+            M2.kolom = this.kolom;
+            for(int i=1; i<=this.baris; i++){
+                for(int j=1; j<=this.kolom; j++){
+                    if(i==j) M2.Mat[i][j] = 1;
+                    else M2.Mat[i][j] = 0;
+                }
+            }
+            int geser = 0;
+            double tmp;
+            for (int i=1;i<=this.baris;i++) {
+                if (this.Mat[i][i + geser] == 0) {
+                    boolean tuker = false;
+                    for (int j=i+1;j<=this.baris;j++) {
+                        if (this.Mat[j][i] != 0) {
+                            this.TukerBaris(i, j);
+                            M2.TukerBaris(i, j);
+                            tuker = true;
+                            break;
+                        }
+                    }
+                    if (tuker == false) {
+                        geser++;
+                        i--;
+                        continue;
+                    }
+                }
+                tmp = 1/this.Mat[i][i + geser];
+                this.KaliBaris(i, tmp);
+                M2.KaliBaris(i, tmp);
+                for (int j=i+1;j<=this.baris;j++) {
+                    tmp = -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser];
+                    this.TambahBaris(j, i, tmp);
+                    M2.TambahBaris(j, i, tmp);
+                }
+            }
+            for (int i=1;i<=this.baris;i++) {
+                for (int j=1;j<=this.kolom;j++) {
+                    System.out.printf("%.2f ",this.Mat[i][j]);
+                }
+                System.out.println();
+            }
+            for (int i=this.baris;i>=1;i--) {
+                int palingkiri = this.LeftestOne(i);
+                if (palingkiri == -1) continue;
+                for (int j=i-1;j>=1;j--) {
+                    tmp = -1 * this.Mat[j][palingkiri];
+                    this.TambahBaris(j, i, tmp);
+                    M2.TambahBaris(j, i, tmp);
+                }
+            }
+            for (int i=1;i<=this.baris;i++) {
+                for (int j=1;j<=this.kolom;j++) {
+                    System.out.printf("%.2f ",this.Mat[i][j]);
+                }
+                System.out.println();
+            }
+            for (int i=1;i<=this.baris;i++) {
+                for (int j=1;j<=this.kolom;j++) {
+                    System.out.printf("%.2f ",M2.Mat[i][j]);
+                }
+                System.out.println();
+            }
+            for(int i=1; i<=this.baris; i++){
+                for(int j=1; j<=this.kolom; j++){
+                    this.Mat[i][j] = M2.Mat[i][j];
+                }
+            }
+        }
+    }
+
 
     //Fungsi untuk menghasilkan matriks persegi dari suatu augmented matriks
     //yang diubah kolom ke-a nya dengan kolom paling kanan (digunakan untuk Cramer)
@@ -387,4 +474,5 @@ public class matriks {
     }
 
 }
+
 // javac *.java && java MainProg
