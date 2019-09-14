@@ -50,12 +50,16 @@ public class matriks {
 
         str = str.trim();
         int row = 1, col = 1;
+        // Mencari banyaknya baris
         for (i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '\n') {
                 row++;
             }
         }
+
+        // Mencari banyaknya kolom
         i = 0;
+        str += '\n';
         while (str.charAt(i) != '\n') {
             if (str.charAt(i) == ' ') {
                 col++;
@@ -67,10 +71,11 @@ public class matriks {
         }
         this.baris = row;
         this.kolom = col;
+
+        // Melakukan assignment matriks
         String cur = "";
         int x = 1, y = 1;
         i = 0;
-        str += '\n';
         while (i < str.length()) {
 
             if (str.charAt(i) == ' ') continue;
@@ -84,7 +89,7 @@ public class matriks {
 
             this.Mat[x][y++] = Double.parseDouble(cur);
             cur = "";
-            if (i >= str.length()) break;
+
             if (str.charAt(i) == '\n') {
                 x++;
                 y = 1;
@@ -96,8 +101,8 @@ public class matriks {
     //Method untuk tulis matriks
     public void TulisMatriks(){
 
-        for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom; j++){
+        for (int i = 1; i <= this.baris ; i++) {
+            for(int j = 1 ; j <= this.kolom; j++) {
                 System.out.print(this.Mat[i][j] + " ");
             }
             System.out.println();
