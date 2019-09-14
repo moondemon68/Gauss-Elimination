@@ -129,7 +129,7 @@ public class matriks {
 
         for (int i = 1; i <= this.baris ; i++) {
             for(int j = 1 ; j <= this.kolom; j++) {
-                System.out.print(this.Mat[i][j] + " ");
+                System.out.printf("%.2f ", this.Mat[i][j]);
             }
             System.out.println();
         }
@@ -214,6 +214,7 @@ public class matriks {
 
     }
 
+    //Method untuk menukar baris a dan b
     public void TukerBaris(int a, int b) {
         for (int i=1;i<=this.kolom;i++) {
             this.Mat[0][i] = this.Mat[a][i];
@@ -222,5 +223,18 @@ public class matriks {
         }
     }
 
+    //Method untuk mengalikan baris a sebesar x kali
+    public void KaliBaris(int a, double x) {
+        for (int i=1;i<=this.kolom;i++) {
+            this.Mat[a][i] = this.Mat[a][i] * x;
+        }
+    }
+
+    //Method untuk menambahkan baris a sejumlah baris b dikali x
+    public void TambahBaris(int a, int b, double x) {
+        for (int i=1;i<=this.kolom;i++) {
+            this.Mat[a][i] = this.Mat[a][i] + this.Mat[b][i] * x;
+        }
+    }
 }
 // javac *.java && java MainProg
