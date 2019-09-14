@@ -279,7 +279,7 @@ public class matriks {
     //Fungsi yang mengembalikan nilai determinan sebuah matriks persegi
     public double Determinant() {
         double ret = 1;
-        matriks M2 = new matriks(); 
+        matriks M2 = new matriks();
         M2.baris = this.baris;
         M2.kolom = this.kolom;
         for(int i=1; i<=this.baris; i++){
@@ -313,76 +313,59 @@ public class matriks {
     //Method untuk merubah matriks menjadi balikannya
     public void Inverse(){
 
-        if(this.Determinant()==0) {System.out.println("Matriks ini tidak memiliki invers.");}
-        else{
-            matriks M2 = new matriks();
-            M2.baris = this.baris;
-            M2.kolom = this.kolom;
-            for(int i=1; i<=this.baris; i++){
-                for(int j=1; j<=this.kolom; j++){
-                    if(i==j) M2.Mat[i][j] = 1;
-                    else M2.Mat[i][j] = 0;
-                }
+        if(this.Determinant()==0) {
+            System.out.println("Matriks ini tidak memiliki invers.");
+            return;
+        }
+        matriks M2 = new matriks();
+        M2.baris = this.baris;
+        M2.kolom = this.kolom;
+        for(int i=1; i<=this.baris; i++){
+            for(int j=1; j<=this.kolom; j++){
+                if(i==j) M2.Mat[i][j] = 1;
+                else M2.Mat[i][j] = 0;
             }
-            int geser = 0;
-            double tmp;
-            for (int i=1;i<=this.baris;i++) {
-                if (this.Mat[i][i + geser] == 0) {
-                    boolean tuker = false;
-                    for (int j=i+1;j<=this.baris;j++) {
-                        if (this.Mat[j][i] != 0) {
-                            this.TukerBaris(i, j);
-                            M2.TukerBaris(i, j);
-                            tuker = true;
-                            break;
-                        }
-                    }
-                    if (tuker == false) {
-                        geser++;
-                        i--;
-                        continue;
-                    }
-                }
-                tmp = 1/this.Mat[i][i + geser];
-                this.KaliBaris(i, tmp);
-                M2.KaliBaris(i, tmp);
+        }
+        int geser = 0;
+        double tmp;
+        for (int i=1;i<=this.baris;i++) {
+            if (this.Mat[i][i + geser] == 0) {
+                boolean tuker = false;
                 for (int j=i+1;j<=this.baris;j++) {
-                    tmp = -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser];
-                    this.TambahBaris(j, i, tmp);
-                    M2.TambahBaris(j, i, tmp);
+                    if (this.Mat[j][i] != 0) {
+                        this.TukerBaris(i, j);
+                        M2.TukerBaris(i, j);
+                        tuker = true;
+                        break;
+                    }
+                }
+                if (tuker == false) {
+                    geser++;
+                    i--;
+                    continue;
                 }
             }
-            for (int i=1;i<=this.baris;i++) {
-                for (int j=1;j<=this.kolom;j++) {
-                    System.out.printf("%.2f ",this.Mat[i][j]);
-                }
-                System.out.println();
+            tmp = 1/this.Mat[i][i + geser];
+            this.KaliBaris(i, tmp);
+            M2.KaliBaris(i, tmp);
+            for (int j=i+1;j<=this.baris;j++) {
+                tmp = -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser];
+                this.TambahBaris(j, i, tmp);
+                M2.TambahBaris(j, i, tmp);
             }
-            for (int i=this.baris;i>=1;i--) {
-                int palingkiri = this.LeftestOne(i);
-                if (palingkiri == -1) continue;
-                for (int j=i-1;j>=1;j--) {
-                    tmp = -1 * this.Mat[j][palingkiri];
-                    this.TambahBaris(j, i, tmp);
-                    M2.TambahBaris(j, i, tmp);
-                }
+        }
+        for (int i=this.baris;i>=1;i--) {
+            int palingkiri = this.LeftestOne(i);
+            if (palingkiri == -1) continue;
+            for (int j=i-1;j>=1;j--) {
+                tmp = -1 * this.Mat[j][palingkiri];
+                this.TambahBaris(j, i, tmp);
+                M2.TambahBaris(j, i, tmp);
             }
-            for (int i=1;i<=this.baris;i++) {
-                for (int j=1;j<=this.kolom;j++) {
-                    System.out.printf("%.2f ",this.Mat[i][j]);
-                }
-                System.out.println();
-            }
-            for (int i=1;i<=this.baris;i++) {
-                for (int j=1;j<=this.kolom;j++) {
-                    System.out.printf("%.2f ",M2.Mat[i][j]);
-                }
-                System.out.println();
-            }
-            for(int i=1; i<=this.baris; i++){
-                for(int j=1; j<=this.kolom; j++){
-                    this.Mat[i][j] = M2.Mat[i][j];
-                }
+        }
+        for(int i=1; i<=this.baris; i++){
+            for(int j=1; j<=this.kolom; j++){
+                this.Mat[i][j] = M2.Mat[i][j];
             }
         }
     }
