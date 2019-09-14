@@ -40,6 +40,7 @@ public class matriks {
 
         Scanner in = new Scanner (System.in);
         String namaFile = in.nextLine();
+        namaFile += ".txt";
         FileReader fr = new FileReader(namaFile);
         int i;
         while ((i = fr.read()) != -1) {
