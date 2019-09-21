@@ -33,6 +33,7 @@ class MainProg {
             } else if (menu == 6) { // Interpolasi Polinom
                 inputInterpolasi(M);
             } else if (menu == 7) { // Keluar
+                System.out.println();
                 System.out.println("Terima kasih sudah menggunakan program ini :)");
                 System.exit(0);
             } else {
@@ -63,6 +64,7 @@ class MainProg {
     }
 
     public static void subMenu(matriks M, int x) {
+        // x = 1 untuk matriks koefisien yang berbentuk persegi
         int type;
         while (true) {
             System.out.println();
@@ -98,9 +100,13 @@ class MainProg {
             System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
             eliminasiGaussJordan.TulisMatriks();
         } else if (type == 3) {
-
+            if (M.Determinant() == 0) {
+                System.out.println("Tidak dapat melakukan metode balikkan karena matriks ini tidak memiliki invers");
+                return;
+            }
         } else if (type == 4) {
-
+            System.out.println("Hasil dari Metode Cramer adalah");
+            M.Cramer();
         }
      }
 
@@ -167,7 +173,9 @@ class MainProg {
                 M.TulisMatriks();
             } else {
                 System.out.println("Masukkan harus diantara 1 atau 2");
+                continue;
             }
+            break;
         }
     }
 }

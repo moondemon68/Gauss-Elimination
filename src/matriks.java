@@ -119,21 +119,34 @@ public class matriks {
 
         for (int i = 1; i <= this.baris ; i++) {
             for(int j = 1 ; j <= this.kolom; j++) {
-                System.out.printf("%.2f ", this.Mat[i][j] + 0.0);
+                System.out.printf("%.3f ", this.Mat[i][j] + 0.0);
             }
             System.out.println();
         }
 
     }
 
+    public double hasilInterpolasi(int n, double x) {
+        double cur = 1;
+        double ret = 0;
+        for (int i = 0; i <= n; i++) {
+            ret += cur * this.Mat[i + 1][this.kolom];
+            cur *= x;
+        }
+        return ret;
+    }
+
     // Method untuk membaca interpolasi
     public void bacaInterpolasi() {
+        System.out.println();
+        System.out.print("Masukkan nilai n : ");
         Scanner in = new Scanner (System.in);
         int n = in.nextInt();
         this.baris = n + 1;
         this.kolom = n + 2;
         Double a, b;
         for (int i = 1; i <= n + 1; i++) {
+            System.out.print("Masukkan x y untuk (x" + (i - 1) + ", y" + (i - 1) + ") : ");
             a = in.nextDouble();
             b = in.nextDouble();
             Double cur = 1.0;
@@ -143,6 +156,13 @@ public class matriks {
             }
             this.Mat[i][n + 2] = b;
         }
+
+        this.ReducedEchelonForm();
+
+        System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
+        double x = in.nextDouble();
+        System.out.println("Hasil dari interpolasinya adalah : " + this.hasilInterpolasi(n, x));
+
     }
 
     // Method untuk membaca interpolasi lewat file
@@ -186,6 +206,12 @@ public class matriks {
             this.Mat[x][n + 2] = b;
             x++;
         }
+
+        this.ReducedEchelonForm();
+
+        System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
+        double xx = in.nextDouble();
+        System.out.println("Hasil dari interpolasinya adalah : " + this.hasilInterpolasi(n, xx));
     }
 
     // Fungsi untuk mengeluarkan hasil transpos matriks
@@ -412,7 +438,7 @@ public class matriks {
         for (int i = 1; i <= persegi.kolom; i++) {
             matriks persegiKeI = MatrixKolom(i);
             Double curDet = persegiKeI.Determinant();
-            System.out.print("Solusi x" + i + " adalah ");
+            System.out.print("x" + i + " = ");
             System.out.printf("%.2f\n", curDet / detPersegi);
         }
     }
