@@ -23,10 +23,13 @@ class MainProg {
                 subMenu(M, 1);
             } else if (menu == 3) { // Matriks balikan
                 inputMatriks(M, 2);
+                tulisBalikkan(M);
             } else if (menu == 4) { // Matriks kofaktor
                 inputMatriks(M, 2);
+                tulisKofaktor(M);
             } else if (menu == 5) { // Adjoin
                 inputMatriks(M, 2);
+                tulisAdjoin(M);
             } else if (menu == 6) { // Interpolasi Polinom
                 inputInterpolasi(M);
             } else if (menu == 7) { // Keluar
@@ -85,7 +88,7 @@ class MainProg {
             break;
         }
         if (type == 1) {
-            matriks eliminasiGauss = M;
+            matriks eliminasiGauss = M.copy();
             eliminasiGauss.EchelonForm();
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss adalah ");
@@ -95,7 +98,7 @@ class MainProg {
                 eliminasiGauss.BuatMatriksSolusi();
             }
         } else if (type == 2) {
-            matriks eliminasiGaussJordan = M;
+            matriks eliminasiGaussJordan = M.copy();
             eliminasiGaussJordan.ReducedEchelonForm();
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
@@ -105,22 +108,26 @@ class MainProg {
                 eliminasiGaussJordan.BuatMatriksSolusi();
             }
         } else if (type == 3) {
+            boolean ok = true;
             if (M.Determinant() == 0) {
                 System.out.println("Tidak dapat melakukan metode balikkan karena matriks ini tidak memiliki invers");
-                return;
+                ok = false;
             }
-            matriks matriksBalikan = M;
-            if (M.baris != M.kolom - 1) {
-                System.out.println("Baris dan kolom matriks koefisien tidak sama.");
-            } else {
-                matriksBalikan = matriksBalikan.CaraBalikan();
-                if (matriksBalikan.baris != 0) {
-                    System.out.println("Hasil dari Cara Balikan adalah:");
-                    matriksBalikan.TulisMatriks();
+            if (ok) {
+                matriks matriksBalikan = M.copy();
+
+                if (M.baris != M.kolom - 1) {
+                    System.out.println("Baris dan kolom matriks koefisien tidak sama.");
+                } else {
+                    matriksBalikan = matriksBalikan.CaraBalikan();
+                    if (matriksBalikan.baris != 0) {
+                        System.out.println("\nHasil dari Cara Balikan adalah:");
+                        matriksBalikan.tulisMatriksSolusi();
+                    }
                 }
             }
         } else if (type == 4) {
-            System.out.println("Hasil dari Metode Cramer adalah");
+            System.out.println("\nHasil dari Metode Cramer adalah : ");
             M.Cramer();
         }
         while (true) {
@@ -153,15 +160,20 @@ class MainProg {
             System.out.print("Masukkan nomor metode menginput matriks : ");
             int file = in.nextInt();
             if (file == 1) {
-                if (t == 1) System.out.println("(Matriks yang terbaca adalah Augmented Matriks)");
-                else System.out.println("(Matriks yang terbaca adalah Coefficient Matriks)");
-                System.out.print("Masukkan Nama File : ");
-                try {
-                    M.BacaFileMatriks();
-                    System.out.println("Matriks yang terbaca adalah : ");
-                    M.TulisMatriks();
-                } catch(Exception e) {
-                    System.out.println(e);
+                while (true) {
+                    if (t == 1) System.out.println("\n(Matriks yang terbaca adalah Augmented Matriks)");
+                    else System.out.println("\n(Matriks yang terbaca adalah Coefficient Matriks)");
+                    System.out.print("Masukkan Nama File : ");
+                    try {
+                        M.BacaFileMatriks();
+                        System.out.println("\nMatriks yang terbaca adalah : ");
+                        M.TulisMatriks();
+                    } catch(Exception e) {
+                        System.out.println("Terjadi kesalahan dalam nama atau file matriks");
+                        System.out.println("Silahkan coba lagi\n");
+                        continue;
+                    }
+                    break;
                 }
             } else if (file == 2) {
                 if (t == 1) {
@@ -193,11 +205,16 @@ class MainProg {
             int file = in.nextInt();
 
             if (file == 1) {
-                System.out.print("Masukkan Nama File : ");
-                try {
-                    M.bacaInterpolasiFile();
-                } catch(Exception e) {
-                    System.out.println(e);
+                while (true) {
+                    System.out.print("Masukkan Nama File : ");
+                    try {
+                        M.bacaInterpolasiFile();
+                    } catch(Exception e) {
+                        System.out.println("Terjadi kesalahan dalam nama atau file interpolasi");
+                        System.out.println("Silahkan coba lagi\n");
+                        continue;
+                    }
+                    break;
                 }
             } else if (file == 2) {
                 M.bacaInterpolasi();
@@ -209,4 +226,26 @@ class MainProg {
         }
     }
 
+    public static void tulisBalikkan(matriks M) {
+        if (M.Determinant() == 0) {
+            System.out.println("\nMatriks tidak mempunyai balikan");
+            return;
+        }
+        System.out.println("\nHasil matriks balikannya adalah :");
+        matriks hasilInverse = M;
+        hasilInverse.Inverse();
+        hasilInverse.TulisMatriks();
+    }
+
+    public static void tulisKofaktor(matriks M) {
+        matriks hasilKofaktor = M.buatKofaktor();
+        System.out.println("\nHasil matriks kofaktornya adalah :");
+        hasilKofaktor.TulisMatriks();
+    }
+
+    public static void tulisAdjoin(matriks M) {
+        matriks hasilAdjoin = M.buatAdjoin();
+        System.out.println("\nHasil matriks adjoinnya adalah :");
+        hasilAdjoin.TulisMatriks();
+    }
 }

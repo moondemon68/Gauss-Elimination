@@ -260,7 +260,13 @@ public class matriks {
     //Fungsi yang mengembalikan indeks angka 1 paling kiri dari baris a
     public int LeftestOne(int a) {
         for (int i=1;i<this.kolom;i++) {
-            if (this.Mat[a][i] == 1) return i;
+            if (Math.abs(this.Mat[a][i]-1) <= 0.0001) return i;
+        }
+        return -1;
+    }
+    public int LeftestOneKoef(int a) {
+        for (int i=1;i<=this.kolom;i++) {
+            if (Math.abs(this.Mat[a][i]-1) <= 0.0001) return i;
         }
         return -1;
     }
@@ -288,8 +294,6 @@ public class matriks {
             for (int j=i+1;j<=this.baris;j++) {
                 this.TambahBaris(j, i, -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser]);
             }
-            System.out.println("ke - " + i);
-            this.TulisMatriks();
         }
         for (int i=1;i<=this.baris;i++) {
             int p=0;
@@ -317,6 +321,18 @@ public class matriks {
         }
     }
 
+    public matriks copy() {
+        matriks ret = new matriks();
+        ret.baris = this.baris;
+        ret.kolom = this.kolom;
+        for (int i = 1; i <= this.baris; i++) {
+            for (int j = 1; j <= this.kolom; j++) {
+                ret.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+        return ret;
+    }
+
     //Fungsi yang mengembalikan nilai determinan sebuah matriks persegi
     public double Determinant() {
         double ret = 1;
@@ -339,6 +355,7 @@ public class matriks {
                     }
                 }
             }
+            if (M2.Mat[i][i] == 0) continue;
             ret *= M2.Mat[i][i];
             M2.KaliBaris(i, 1/M2.Mat[i][i]);
             for (int j=i+1;j<=M2.baris;j++) {
@@ -354,10 +371,11 @@ public class matriks {
     //Method untuk merubah matriks menjadi balikannya
     public void Inverse(){
 
-        if(this.Determinant()==0) {
+        if (this.Determinant() == 0) {
             System.out.println("Matriks ini tidak memiliki invers.");
             return;
         }
+
         matriks M2 = new matriks();
         M2.baris = this.baris;
         M2.kolom = this.kolom;
@@ -396,7 +414,7 @@ public class matriks {
             }
         }
         for (int i=this.baris;i>=1;i--) {
-            int palingkiri = this.LeftestOne(i);
+            int palingkiri = this.LeftestOneKoef(i);
             if (palingkiri == -1) continue;
             for (int j=i-1;j>=1;j--) {
                 tmp = -1 * this.Mat[j][palingkiri];
@@ -446,7 +464,7 @@ public class matriks {
         Double detPersegi = persegi.Determinant();
 
         if (detPersegi == 0 || detPersegi.isNaN()) {
-            System.out.println("Tidak ada solusi");
+            System.out.println("Tidak terdapat solusi dari metode cramer");
             return;
         }
 
@@ -454,7 +472,7 @@ public class matriks {
             matriks persegiKeI = MatrixKolom(i);
             Double curDet = persegiKeI.Determinant();
             System.out.print("x" + i + " = ");
-            System.out.printf("%.2f\n", curDet / detPersegi);
+            System.out.printf("%.3f\n", curDet / detPersegi);
         }
     }
 
@@ -532,22 +550,28 @@ public class matriks {
         }
         matriks Sol = new matriks();
         matriks MAInv = new matriks();
-        if (MAInv.Determinant() == 0) {
+        if ((MAInv.Determinant() - 0.0) <= 0.0000001) {
             System.out.println("Matriks koefisien tidak memiliki inverse");
             return Sol;
         } else {
             MAInv = MA;
             MAInv.Inverse();
-            System.out.println("Inverse dari matriks koefisien:");
+            System.out.println("\nInverse dari matriks koefisien:");
             MAInv.TulisMatriks();
             Sol = KaliMatriks(MAInv, MB);
             return Sol;
         }
     }
 
+    public void tulisMatriksSolusi() {
+        for (int i = 1; i <= this.baris; i++) {
+            System.out.print("x" + i + " = ");
+            System.out.printf("%.3f\n", this.Mat[i][1]);
+        }
+    }
+
     public void BuatMatriksSolusi() {
         this.ReducedEchelonForm();
-        this.TulisMatriks();
         Integer [] piv = new Integer[100];
         Integer [][] id = new Integer[100][100];
         Double [][] mul = new Double[100][100];
@@ -556,11 +580,9 @@ public class matriks {
             int pivot = LeftestOne(i), cnt=0;
             piv[i] = pivot;
             if (pivot == -1) {
-                System.out.printf("%d %.8f\n", i, this.Mat[i][this.kolom]+0.0);
-                if (Math.abs(this.Mat[i][this.kolom] - 0.0) <= 0.0001) {
+                if (Math.abs(this.Mat[i][this.kolom] - 0.0) <= 0.000001) {
                     continue;
                 } else {
-                    System.out.printf("%d", i);
                     NoSolution = 1;
                     break;
                 }
@@ -576,14 +598,19 @@ public class matriks {
                 mul[i][0] = this.Mat[i][this.kolom];
             }
         }
-        if (NoSolution == 1) System.out.println("No Solution");
+        if (NoSolution == 1) System.out.println("Tidak ada solusi");
         else {
+            System.out.println("\nDidapat Solusi :");
             for (int i=1;i<=this.baris;i++) {
                 if (piv[i] == -1) continue;
-                System.out.printf("x%d = %.2f", piv[i], mul[i][0]);
+                System.out.printf("x%d = %.3f", piv[i], mul[i][0]);
                 for (int j=1;j<=id[i][0];j++) {
-                    if (mul[i][j] > 0) System.out.printf("+");
-                    System.out.printf("%.2fx%d", mul[i][j], id[i][j]);
+                    if (mul[i][j] > 0) System.out.print(" + ");
+                    else {
+                        System.out.print(" - ");
+                        mul[i][j] *= -1;
+                    }
+                    System.out.printf("%.3fx%d", mul[i][j], id[i][j]);
                 }
                 System.out.printf("\n");
             }
