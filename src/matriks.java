@@ -529,7 +529,35 @@ public class matriks {
             Sol = KaliMatriks(MAInv, MB);
             return Sol;
         }
+    }
 
+    public void BuatMatriksSolusi() {
+        matriks Sol = new matriks();
+        Sol.baris = this.baris;
+        Sol.kolom = 1;
+        int special = 0;
+        for (int i=this.baris;i>=1;i--) {
+            int pivot = LeftestOne(i);
+            if (pivot != i) {
+                special = 1;
+            } else {
+                Sol.Mat[i][1] = this.Mat[i][this.kolom];
+                for (int j=this.kolom-1;j>pivot;j--) {
+                    Sol.Mat[i][1] -= this.Mat[i][j] * Sol.Mat[j][1];
+                }
+            }
+        }
+        if (special == 0) TulisSolusi(Sol); else this.specialCase();
+    }
+
+    public void TulisSolusi(matriks M) {
+        for (int i=1;i<=this.baris;i++) {
+            System.out.printf("x%d = %.2f\n", i, M.Mat[i][1]);
+        }
+    }
+
+    public void specialCase() {
+        
     }
 }
 

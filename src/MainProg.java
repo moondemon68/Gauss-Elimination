@@ -93,6 +93,7 @@ class MainProg {
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss adalah ");
             eliminasiGauss.TulisMatriks();
+            eliminasiGauss.BuatMatriksSolusi();
         } else if (type == 2) {
             matriks eliminasiGaussJordan = M;
             eliminasiGaussJordan.ReducedEchelonForm();
