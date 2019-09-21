@@ -2,120 +2,135 @@ import java.util.*;
 
 class MainProg {
 
-    /*
-    ----- MENU -----
-    1. Sistem Persamaan Linier
-    2. Determinan
-    3. Matriks balikan
-    4. Matriks kofaktor
-    5. Adjoin
-    6. Interpolasi Polinom
-    7. Keluar
-    ----- SUBMENU ----
-    1. Metode Eliminasi Gauss
-    2. Metode Eliminasi Gauss-Jordan
-    3. Metode Matriks balikan
-    4. Kaidah Crammer
-    */
+
 
     public static void main(String[] args) {
+
+        start();
+
         Scanner in = new Scanner (System.in);
         matriks M = new matriks();
         int menu = -1;
+
         while (menu != 7) {
-            System.out.println();
-            System.out.println("---- MENU ----");
-            System.out.println("1. Sistem Persamaan Linier");
-            System.out.println("2. Determinan");
-            System.out.println("3. Matriks balikan");
-            System.out.println("4. Matriks kofaktor");
-            System.out.println("5. Adjoin");
-            System.out.println("6. Interpolasi Polinom");
-            System.out.println("7. Keluar\n");
-            System.out.print("Masukkan pilihan: ");
+            tampilMenu();
             menu = in.nextInt();
-            if (menu == 1) {
-                System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
-                int file = in.nextInt();
-                if (file == 1) {
-                    System.out.print("Masukkan Nama File : ");
-                    try {
-                        M.BacaFileMatriks();
-                        M.TulisMatriks();
-                        M.Cramer();
-                    } catch(Exception e) {
-                        System.out.println(e);
-                    }
-                } else {
-                    System.out.println("keyboard");
-                    M.BacaMatriks();
-                    M.TulisMatriks();
-                }
-            } else if (menu == 2) {
-                System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
-                int file = in.nextInt();
-                if (file == 1) {
-                    System.out.print("Masukkan Nama File : ");
-                } else {
-                    System.out.println("keyboard");
-                    //BacaMatriks(M);
-                }
-            } else if (menu == 3) {
-                System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
-                int file = in.nextInt();
-                if (file == 1) {
-                    System.out.print("Masukkan Nama File : ");
-                } else {
-                    System.out.println("keyboard");
-                    M.BacaMatriksPersegi();
-                    M.Inverse();
-                    M.TulisMatriks();
-                }
-            } else if (menu == 4) {
-                System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
-                int file = in.nextInt();
-                if (file == 1) {
-                    try {
-                        System.out.print("Masukkan Nama File : ");
-                        M.BacaFileMatriks();
-                        matriks hasil = M.buatKofaktor();
-                        hasil.TulisMatriks();
-                    } catch(Exception e) {
-                        System.out.println(e);
-                    }
-                } else {
-                    System.out.println("keyboard");
-                    //BacaMatriks(M);
-                }
-            } else if (menu == 5) {
-                System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
-                int file = in.nextInt();
-                if (file == 1) {
-                    System.out.print("Masukkan Nama File : ");
-                } else {
-                    System.out.println("keyboard");
-                    //BacaMatriks(M);
-                }
-            } else if (menu == 6) {
-                System.out.print("Baca pake file?\n0 = tidak\n1 = ya\n");
-                int file = in.nextInt();
-                if (file == 1) {
-                    System.out.print("Masukkan Nama File : ");
-                    try {
-                        M.bacaInterpolasiFile();
-                        M.TulisMatriks();
-                    } catch(Exception e) {
-                        System.out.println(e);
-                    }
-                } else {
-                    System.out.println("keyboard");
-                    M.bacaInterpolasi();
-                    M.TulisMatriks();
-                }
-            } else if (menu == 7) {
+            if (menu == 1) { // Sistem Persamaan Linier
+                subMenu(0);
+                inputMatriks(M, 1);
+            } else if (menu == 2) { // Determinan
+                subMenu(1);
+                inputMatriks(M, 2);
+            } else if (menu == 3) { // Matriks balikan
+                subMenu(1);
+                inputMatriks(M, 2);
+            } else if (menu == 4) { // Matriks kofaktor
+                subMenu(1);
+                inputMatriks(M, 2);
+            } else if (menu == 5) { // Adjoin
+                subMenu(1);
+                inputMatriks(M, 2);
+            } else if (menu == 6) { // Interpolasi Polinom
+                inputInterpolasi(M);
+            } else if (menu == 7) { // Keluar
+                System.out.println("Terima kasih sudah menggunakan program ini :)");
                 System.exit(0);
             } else {
-                System.out.println("Masukan salah!");
+                System.out.println("Masukkan harus di antara 1 - 7");
+            }
+        }
+    }
+
+    public static void start() {
+        System.out.println();
+        System.out.println("Selamat datang di Program Sistem Persamaan Linier, Determinan, dan Aplikasinya!");
+        System.out.println("Created by : HMF Algeorithm");
+        System.out.println();
+        System.out.println("Silahkan memulai program dengan memilih menu!");
+    }
+
+    public static void tampilMenu() {
+        System.out.println();
+        System.out.println("---- MENU ----");
+        System.out.println("1. Sistem Persamaan Linier");
+        System.out.println("2. Determinan");
+        System.out.println("3. Matriks balikan");
+        System.out.println("4. Matriks kofaktor");
+        System.out.println("5. Adjoin");
+        System.out.println("6. Interpolasi Polinom");
+        System.out.println("7. Keluar\n");
+        System.out.print("Masukkan pilihan: ");
+    }
+
+    public static void subMenu(int x) {
+        System.out.println();
+        System.out.println("---- Silahkan pilih metode penyelesaian ----");
+        System.out.println("1. Metode Eliminiasi Gauss");
+        System.out.println("2. Metode Eliminiasi Gauss-Jordan");
+        if (x == 1) return;
+        System.out.println("3. Metode Matriks Balikan");
+        System.out.println("4. Kaidah Cramer");
+    }
+
+    public static void inputMatriks(matriks M, int t) {
+        // type 1 artinya persegi panjang
+        // type 2 artinya persegi
+        while (true) {
+            Scanner in = new Scanner (System.in);
+            System.out.println();
+            System.out.println("Pilih metode dalam menginput matriks :");
+            System.out.println("1. Baca File");
+            System.out.println("2. Keyboard");
+            System.out.print("Masukkan nomor metode menginput matriks : ");
+            int file = in.nextInt();
+            if (file == 1) {
+                System.out.print("Masukkan Nama File : ");
+                try {
+                    M.BacaFileMatriks();
+                    M.TulisMatriks();
+                } catch(Exception e) {
+                    System.out.println(e);
+                }
+            } else if (file == 2) {
+                System.out.println("keyboard");
+                if (t == 1) M.BacaMatriks();
+                else if (t == 2) M.BacaMatriksPersegi();
+                M.TulisMatriks();
+            } else {
+                System.out.println("Masukkan harus diantara 1 atau 2");
+                continue;
+            }
+            if (t == 2 && M.baris != M.kolom) {
+                System.out.println("Matriks harus merupakan matriks persegi (kolom = baris).");
+                continue;
+            }
+            break;
+        }
+    }
+
+    public static void inputInterpolasi(matriks M) {
+        while (true) {
+            System.out.println();
+            System.out.println("Pilih metode dalam menginput Interpolasi Polinom :");
+            System.out.println("1. Baca File");
+            System.out.println("2. Keyboard");
+            System.out.print("Masukkan nomor metode menginput Interpolasi Polinom : ");
+            Scanner in = new Scanner (System.in);
+            int file = in.nextInt();
+
+            if (file == 1) {
+                System.out.print("Masukkan Nama File : ");
+                try {
+                    M.bacaInterpolasiFile();
+                    M.TulisMatriks();
+                } catch(Exception e) {
+                    System.out.println(e);
+                }
+            } else if (file == 2) {
+                M.bacaInterpolasi();
+                M.TulisMatriks();
+            } else {
+                System.out.println("Masukkan harus diantara 1 atau 2");
             }
         }
     }
