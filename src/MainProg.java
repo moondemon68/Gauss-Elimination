@@ -101,7 +101,16 @@ class MainProg {
             System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
             eliminasiGaussJordan.TulisMatriks();
         } else if (type == 3) {
-
+            matriks matriksBalikan = M;
+            if (M.baris != M.kolom-1) {
+                System.out.println("Baris dan kolom matriks koefisien tidak sama.");
+            } else {
+                matriksBalikan = matriksBalikan.CaraBalikan();
+                if (matriksBalikan.baris != 0) {
+                    System.out.println("Hasil dari Cara Balikan adalah:");
+                    matriksBalikan.TulisMatriks();
+                }
+            }
         } else if (type == 4) {
 
         }

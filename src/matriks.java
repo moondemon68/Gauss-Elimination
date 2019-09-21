@@ -457,17 +457,53 @@ public class matriks {
         return ret.Transpose();
     }
 
+    // fungsi untuk mengalikan 2 matriks
     public matriks KaliMatriks(matriks M1, matriks M2) {
         matriks ret = new matriks();
+        ret.baris = M1.baris;
+        ret.kolom = M2.kolom;
         for (int i=1;i<=M1.baris;i++) {
             for (int j=1;j<=M2.kolom;j++) {
                 ret.Mat[i][j] = 0;
-                for (int k=0;k<=M1.kolom;k++) {
+                for (int k=1;k<=M1.kolom;k++) {
                     ret.Mat[i][j] += M1.Mat[i][k] * M2.Mat[k][j];
                 }
             }
         }
         return ret;
+    }
+
+    // fungsi untuk mencari solusi dengan cara matriks balikan
+    public matriks CaraBalikan() {
+        matriks MA = new matriks();
+        matriks MB = new matriks();
+        MA.baris = this.baris;
+        MA.kolom = this.kolom-1;
+        MB.baris = this.baris;
+        MB.kolom = 1;
+        for (int i=1;i<=MA.baris;i++) {
+            for (int j=1;j<=MA.kolom;j++) {
+                MA.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+        for (int i=1;i<=MB.baris;i++) {
+            MB.Mat[i][1] = this.Mat[i][this.kolom];
+        }
+        matriks Sol = new matriks();
+        matriks MAInv = new matriks();
+        if (MAInv.Determinant() == 0) {
+            System.out.println("Matriks koefisien tidak memiliki inverse");
+            return Sol;
+        } else {
+            MAInv = MA;
+            MAInv.TulisMatriks();
+            MAInv.Inverse();
+            System.out.println("Inverse dari matriks koefisien:");
+            MAInv.TulisMatriks();
+            Sol = KaliMatriks(MAInv, MB);
+            return Sol;
+        }
+        
     }
 }
 
