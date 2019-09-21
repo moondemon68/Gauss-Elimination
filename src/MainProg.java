@@ -32,9 +32,6 @@ class MainProg {
                 subMenu(M, 1);
             } else if (menu == 6) { // Interpolasi Polinom
                 inputInterpolasi(M);
-                System.out.printf("Matriks interpolasi:\n");
-                M.TulisMatriks();
-
             } else if (menu == 7) { // Keluar
                 System.out.println();
                 System.out.println("Terima kasih sudah menggunakan program ini :)");
@@ -108,7 +105,7 @@ class MainProg {
                 return;
             }
             matriks matriksBalikan = M;
-            if (M.baris != M.kolom-1) {
+            if (M.baris != M.kolom - 1) {
                 System.out.println("Baris dan kolom matriks koefisien tidak sama.");
             } else {
                 matriksBalikan = matriksBalikan.CaraBalikan();

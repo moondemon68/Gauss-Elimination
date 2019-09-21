@@ -504,7 +504,7 @@ public class matriks {
         matriks MA = new matriks();
         matriks MB = new matriks();
         MA.baris = this.baris;
-        MA.kolom = this.kolom-1;
+        MA.kolom = this.kolom - 1;
         MB.baris = this.baris;
         MB.kolom = 1;
         for (int i=1;i<=MA.baris;i++) {
@@ -529,7 +529,7 @@ public class matriks {
             Sol = KaliMatriks(MAInv, MB);
             return Sol;
         }
-        
+
     }
 }
 
