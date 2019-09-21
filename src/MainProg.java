@@ -90,14 +90,10 @@ class MainProg {
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss adalah ");
             eliminasiGauss.TulisMatriks();
-<<<<<<< HEAD
             if (x == 1) System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
             else {
-                // TulisSolusi
+                eliminasiGauss.BuatMatriksSolusi();
             }
-=======
-            eliminasiGauss.BuatMatriksSolusi();
->>>>>>> 69c6227b368a397aefa01f06a7116c7578645a31
         } else if (type == 2) {
             matriks eliminasiGaussJordan = M;
             eliminasiGaussJordan.ReducedEchelonForm();
@@ -106,7 +102,7 @@ class MainProg {
             eliminasiGaussJordan.TulisMatriks();
             if (x == 1) System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
             else {
-                // TulisSolusi
+                eliminasiGaussJordan.BuatMatriksSolusi();
             }
         } else if (type == 3) {
             if (M.Determinant() == 0) {
@@ -128,6 +124,7 @@ class MainProg {
             M.Cramer();
         }
         while (true) {
+            System.out.println();
             System.out.println("Coba metode lain ?");
             System.out.println("1. Ya");
             System.out.println("2. Tidak");

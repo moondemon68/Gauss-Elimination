@@ -29,7 +29,7 @@ public class matriks {
         System.out.print("Masukkan jumlah kolom: ");
         this.kolom = in.nextInt();
 
-        System.out.println("Masukkan Matriks");
+        System.out.println("Masukkan Matriks : ");
         for(int i=1; i<=this.baris; i++){
             for(int j=1; j<=this.kolom; j++ ){
                 this.Mat[i][j] = in.nextDouble();
@@ -288,6 +288,8 @@ public class matriks {
             for (int j=i+1;j<=this.baris;j++) {
                 this.TambahBaris(j, i, -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser]);
             }
+            System.out.println("ke - " + i);
+            this.TulisMatriks();
         }
     }
 
@@ -531,31 +533,6 @@ public class matriks {
         }
     }
 
-    // public void BuatMatriksSolusi() {
-    //     matriks Sol = new matriks();
-    //     Sol.baris = this.baris;
-    //     Sol.kolom = 1;
-    //     int special = 0;
-    //     for (int i=this.baris;i>=1;i--) {
-    //         int pivot = LeftestOne(i);
-    //         if (pivot != i) {
-    //             special = 1;
-    //         } else {
-    //             Sol.Mat[i][1] = this.Mat[i][this.kolom];
-    //             for (int j=this.kolom-1;j>pivot;j--) {
-    //                 Sol.Mat[i][1] -= this.Mat[i][j] * Sol.Mat[j][1];
-    //             }
-    //         }
-    //     }
-    //     if (special == 0) TulisSolusi(Sol); else this.specialCase();
-    // }
-
-    // public void TulisSolusi(matriks M) {
-    //     for (int i=1;i<=this.baris;i++) {
-    //         System.out.printf("x%d = %.2f\n", i, M.Mat[i][1]);
-    //     }
-    // }
-
     public void BuatMatriksSolusi() {
         this.ReducedEchelonForm();
         Integer [] piv = new Integer[100];
@@ -588,7 +565,7 @@ public class matriks {
         else {
             for (int i=1;i<=this.baris;i++) {
                 if (piv[i] == -1) continue;
-                System.out.printf("x%d=%.2f", piv[i], mul[i][0]);
+                System.out.printf("x%d = %.2f", piv[i], mul[i][0]);
                 for (int j=1;j<=id[i][0];j++) {
                     if (mul[i][j] > 0) System.out.printf("+");
                     System.out.printf("%.2fx%d", mul[i][j], id[i][j]);
