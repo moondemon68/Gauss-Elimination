@@ -34,7 +34,7 @@ class MainProg {
                 inputInterpolasi(M);
                 System.out.printf("Matriks interpolasi:\n");
                 M.TulisMatriks();
-                
+
             } else if (menu == 7) { // Keluar
                 System.out.println();
                 System.out.println("Terima kasih sudah menggunakan program ini :)");
@@ -103,11 +103,10 @@ class MainProg {
             System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
             eliminasiGaussJordan.TulisMatriks();
         } else if (type == 3) {
-<<<<<<< HEAD
             if (M.Determinant() == 0) {
                 System.out.println("Tidak dapat melakukan metode balikkan karena matriks ini tidak memiliki invers");
                 return;
-=======
+            }
             matriks matriksBalikan = M;
             if (M.baris != M.kolom-1) {
                 System.out.println("Baris dan kolom matriks koefisien tidak sama.");
@@ -117,13 +116,12 @@ class MainProg {
                     System.out.println("Hasil dari Cara Balikan adalah:");
                     matriksBalikan.TulisMatriks();
                 }
->>>>>>> 6ec4b3011f93962b554bb2185ace65fd3040e053
             }
         } else if (type == 4) {
             System.out.println("Hasil dari Metode Cramer adalah");
             M.Cramer();
         }
-     }
+    }
 
     public static void inputMatriks(matriks M, int t) {
         // type 1 artinya persegi panjang
