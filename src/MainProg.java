@@ -174,13 +174,11 @@ class MainProg {
                 System.out.print("Masukkan Nama File : ");
                 try {
                     M.bacaInterpolasiFile();
-                    M.TulisMatriks();
                 } catch(Exception e) {
                     System.out.println(e);
                 }
             } else if (file == 2) {
                 M.bacaInterpolasi();
-                M.TulisMatriks();
             } else {
                 System.out.println("Masukkan harus diantara 1 atau 2");
                 continue;
