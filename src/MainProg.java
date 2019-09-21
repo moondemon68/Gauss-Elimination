@@ -21,22 +21,37 @@ class MainProg {
             } else if (menu == 2) { // Determinan
                 subMenu(1);
                 inputMatriks(M, 2);
+                System.out.printf("Determinan dari matriks = %.2f\n", M.Determinant());
             } else if (menu == 3) { // Matriks balikan
                 subMenu(1);
                 inputMatriks(M, 2);
+                M.Inverse();
+                System.out.printf("Inverse dari matriks:\n");
+                M.TulisMatriks();
             } else if (menu == 4) { // Matriks kofaktor
                 subMenu(1);
                 inputMatriks(M, 2);
+                matriks MKof = new matriks();
+                MKof = M.buatKofaktor();
+                System.out.printf("Kofaktor dari matriks:\n");
+                MKof.TulisMatriks();
             } else if (menu == 5) { // Adjoin
                 subMenu(1);
                 inputMatriks(M, 2);
+                matriks MAdj = new matriks();
+                MAdj = M.buatAdjoin();
+                System.out.printf("Adjoin dari matriks:\n");
+                MAdj.TulisMatriks();
             } else if (menu == 6) { // Interpolasi Polinom
                 inputInterpolasi(M);
+                System.out.printf("Matriks interpolasi:\n");
+                M.TulisMatriks();
+                
             } else if (menu == 7) { // Keluar
                 System.out.println("Terima kasih sudah menggunakan program ini :)");
                 System.exit(0);
             } else {
-                System.out.println("Masukkan harus di antara 1 - 7");
+                System.out.println("Masukan harus di antara 1 - 7");
             }
         }
     }

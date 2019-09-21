@@ -457,6 +457,18 @@ public class matriks {
         return ret.Transpose();
     }
 
+    public matriks KaliMatriks(matriks M1, matriks M2) {
+        matriks ret = new matriks();
+        for (int i=1;i<=M1.baris;i++) {
+            for (int j=1;j<=M2.kolom;j++) {
+                ret.Mat[i][j] = 0;
+                for (int k=0;k<=M1.kolom;k++) {
+                    ret.Mat[i][j] += M1.Mat[i][k] * M2.Mat[k][j];
+                }
+            }
+        }
+        return ret;
+    }
 }
 
 // javac *.java && java MainProg
