@@ -288,6 +288,18 @@ public class matriks {
                 this.TambahBaris(j, i, -1 * this.Mat[j][i + geser] / this.Mat[i][i + geser]);
             }
         }
+        for (int i=1;i<=this.baris;i++) {
+            int p=0;
+            for (int j=1;j<=this.kolom;j++) {
+                if (this.Mat[i][j] != 0) {
+                    p = j;
+                    break;
+                }
+            }
+            if (p == this.kolom-1) {
+                this.KaliBaris(i, 1/this.Mat[i][p]);
+            }
+        }
     }
 
     //Method untuk mengubah matriks menjadi reduced echelon form
@@ -558,6 +570,7 @@ public class matriks {
 
     public void BuatMatriksSolusi() {
         this.ReducedEchelonForm();
+        this.TulisMatriks();
         Integer [] piv = new Integer[100];
         Integer [][] id = new Integer[100][100];
         Double [][] mul = new Double[100][100];
@@ -566,9 +579,11 @@ public class matriks {
             int pivot = LeftestOne(i), cnt=0;
             piv[i] = pivot;
             if (pivot == -1) {
-                if (this.Mat[i][this.kolom] == 0) {
+                System.out.printf("%d %.8f\n", i, this.Mat[i][this.kolom]+0.0);
+                if (Math.abs(this.Mat[i][this.kolom] - 0.0) <= 0.0001) {
                     continue;
                 } else {
+                    System.out.printf("%d", i);
                     NoSolution = 1;
                     break;
                 }
