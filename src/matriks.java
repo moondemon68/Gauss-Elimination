@@ -24,9 +24,9 @@ public class matriks {
 
         Scanner in = new Scanner (System.in);
 
-        System.out.println("Masukkan jumlah baris: ");
+        System.out.print("Masukkan jumlah baris: ");
         this.baris = in.nextInt();
-        System.out.println("Masukkan jumlah kolom: ");
+        System.out.print("Masukkan jumlah kolom: ");
         this.kolom = in.nextInt();
 
         for(int i=1; i<=this.baris; i++){
