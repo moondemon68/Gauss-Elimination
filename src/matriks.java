@@ -42,7 +42,7 @@ public class matriks {
 
         Scanner in = new Scanner (System.in);
 
-        System.out.println("Masukkan jumlah baris dan kolom: ");
+        System.out.print("Masukkan jumlah baris dan kolom : ");
         this.baris = in.nextInt();
         this.kolom = this.baris;
         for(int i=1; i<=this.baris; i++){

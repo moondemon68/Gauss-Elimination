@@ -175,7 +175,7 @@ class MainProg {
                 continue;
             }
             if (t == 2 && M.baris != M.kolom) {
-                System.out.println("Matriks harus merupakan matriks persegi (kolom = baris).");
+                System.out.println("Matriks harus merupakan matriks persegi.");
                 continue;
             }
             break;
