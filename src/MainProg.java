@@ -110,16 +110,15 @@ class MainProg {
         while (true) {
             Scanner in = new Scanner (System.in);
             System.out.println();
-            System.out.println("Pilih metode dalam menginput matriks :");
+            System.out.println("Pilih metode dalam menginput matriks persegi :");
             System.out.println("1. Baca File");
             System.out.println("2. Keyboard");
-            System.out.print("Masukkan nomor metode menginput matriks : ");
+            System.out.print("Masukkan nomor metode menginput matriks persegi : ");
             int file = in.nextInt();
             if (file == 1) {
                 System.out.println("(Matriks yang terbaca adalah Augmented Matriks)");
                 System.out.print("Masukkan Nama File : ");
                 try {
-
                     M.BacaFileMatriks();
                     System.out.println("Matriks yang terbaca adalah : ");
                     M.TulisMatriks();
