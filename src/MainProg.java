@@ -20,16 +20,13 @@ class MainProg {
                 subMenu(M, 0);
             } else if (menu == 2) { // Determinan
                 inputMatriks(M, 2);
-                subMenu(M, 0);
+                subMenu(M, 1);
             } else if (menu == 3) { // Matriks balikan
                 inputMatriks(M, 2);
-                subMenu(M, 1);
             } else if (menu == 4) { // Matriks kofaktor
                 inputMatriks(M, 2);
-                subMenu(M, 1);
             } else if (menu == 5) { // Adjoin
                 inputMatriks(M, 2);
-                subMenu(M, 1);
             } else if (menu == 6) { // Interpolasi Polinom
                 inputInterpolasi(M);
             } else if (menu == 7) { // Keluar
@@ -60,7 +57,7 @@ class MainProg {
         System.out.println("5. Adjoin");
         System.out.println("6. Interpolasi Polinom");
         System.out.println("7. Keluar\n");
-        System.out.print("Masukkan pilihan: ");
+        System.out.print("Masukkan pilihan : ");
     }
 
     public static void subMenu(matriks M, int x) {
@@ -93,13 +90,20 @@ class MainProg {
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss adalah ");
             eliminasiGauss.TulisMatriks();
-            eliminasiGauss.BuatMatriksSolusi();
+            if (x == 1) System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
+            else {
+                eliminasiGauss.BuatMatriksSolusi();
+            }
         } else if (type == 2) {
             matriks eliminasiGaussJordan = M;
             eliminasiGaussJordan.ReducedEchelonForm();
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
             eliminasiGaussJordan.TulisMatriks();
+            if (x == 1) System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
+            else {
+                eliminasiGaussJordan.BuatMatriksSolusi();
+            }
         } else if (type == 3) {
             if (M.Determinant() == 0) {
                 System.out.println("Tidak dapat melakukan metode balikkan karena matriks ini tidak memiliki invers");
@@ -119,6 +123,22 @@ class MainProg {
             System.out.println("Hasil dari Metode Cramer adalah");
             M.Cramer();
         }
+        while (true) {
+            System.out.println();
+            System.out.println("Coba metode lain ?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            System.out.print("Pilih nomor jawaban : ");
+            Scanner in = new Scanner (System.in);
+            int number = in.nextInt();
+            if (number == 1) {
+                subMenu(M, x);
+            } else if (number != 2) {
+                System.out.println("Masukkan harus antara 1 - 2");
+                continue;
+            }
+            break;
+        }
     }
 
     public static void inputMatriks(matriks M, int t) {
@@ -127,13 +147,14 @@ class MainProg {
         while (true) {
             Scanner in = new Scanner (System.in);
             System.out.println();
-            System.out.println("Pilih metode dalam menginput matriks persegi :");
+            System.out.println("Pilih metode dalam menginput matriks :");
             System.out.println("1. Baca File");
             System.out.println("2. Keyboard");
-            System.out.print("Masukkan nomor metode menginput matriks persegi : ");
+            System.out.print("Masukkan nomor metode menginput matriks : ");
             int file = in.nextInt();
             if (file == 1) {
-                System.out.println("(Matriks yang terbaca adalah Augmented Matriks)");
+                if (t == 1) System.out.println("(Matriks yang terbaca adalah Augmented Matriks)");
+                else System.out.println("(Matriks yang terbaca adalah Coefficient Matriks)");
                 System.out.print("Masukkan Nama File : ");
                 try {
                     M.BacaFileMatriks();
@@ -154,7 +175,7 @@ class MainProg {
                 continue;
             }
             if (t == 2 && M.baris != M.kolom) {
-                System.out.println("Matriks harus merupakan matriks persegi (kolom = baris).");
+                System.out.println("Matriks harus merupakan matriks persegi.");
                 continue;
             }
             break;
@@ -187,4 +208,5 @@ class MainProg {
             break;
         }
     }
+
 }
