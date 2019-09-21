@@ -445,6 +445,7 @@ public class matriks {
                 Double cur = 1.0;
                 if ((i + j) % 2 == 1) cur *= -1;
                 ret.Mat[i][j] = cur * detMatriksEx(i, j);
+                if (ret.Mat[i][j] != ret.Mat[i][j]) ret.Mat[i][j] = 0;
             }
         }
         return ret;
