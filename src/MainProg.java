@@ -16,20 +16,20 @@ class MainProg {
             tampilMenu();
             menu = in.nextInt();
             if (menu == 1) { // Sistem Persamaan Linier
-                subMenu(0);
                 inputMatriks(M, 1);
+                subMenu(M, 0);
             } else if (menu == 2) { // Determinan
-                subMenu(1);
                 inputMatriks(M, 2);
+                subMenu(M, 0);
             } else if (menu == 3) { // Matriks balikan
-                subMenu(1);
                 inputMatriks(M, 2);
+                subMenu(M, 1);
             } else if (menu == 4) { // Matriks kofaktor
-                subMenu(1);
                 inputMatriks(M, 2);
+                subMenu(M, 1);
             } else if (menu == 5) { // Adjoin
-                subMenu(1);
                 inputMatriks(M, 2);
+                subMenu(M, 1);
             } else if (menu == 6) { // Interpolasi Polinom
                 inputInterpolasi(M);
             } else if (menu == 7) { // Keluar
@@ -62,15 +62,47 @@ class MainProg {
         System.out.print("Masukkan pilihan: ");
     }
 
-    public static void subMenu(int x) {
-        System.out.println();
-        System.out.println("---- Silahkan pilih metode penyelesaian ----");
-        System.out.println("1. Metode Eliminiasi Gauss");
-        System.out.println("2. Metode Eliminiasi Gauss-Jordan");
-        if (x == 1) return;
-        System.out.println("3. Metode Matriks Balikan");
-        System.out.println("4. Kaidah Cramer");
-    }
+    public static void subMenu(matriks M, int x) {
+        int type;
+        while (true) {
+            System.out.println();
+            System.out.println("---- Silahkan pilih metode penyelesaian ----");
+            System.out.println("1. Metode Eliminasi Gauss");
+            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            if (x != 1) {
+                System.out.println("3. Metode Matriks Balikan");
+                System.out.println("4. Kaidah Cramer");
+            }
+            System.out.print("Pilih nomor metode penyelesaian : ");
+            Scanner in = new Scanner (System.in);
+            type = in.nextInt();
+            if ((type > 2 || type < 1) && x == 1) {
+                System.out.println("Masukkan harus di antara 1 - 2");
+                continue;
+            } else if (type > 4 || type < 1) {
+                System.out.println("Masukkan harus di antara 1 - 4");
+                continue;
+            }
+            break;
+        }
+        if (type == 1) {
+            matriks eliminasiGauss = M;
+            eliminasiGauss.EchelonForm();
+            System.out.println();
+            System.out.println("Hasil dari Eliminasi Gauss adalah ");
+            eliminasiGauss.TulisMatriks();
+        } else if (type == 2) {
+            matriks eliminasiGaussJordan = M;
+            eliminasiGaussJordan.ReducedEchelonForm();
+            System.out.println();
+            System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
+            eliminasiGaussJordan.TulisMatriks();
+        } else if (type == 3) {
+
+        } else if (type == 4) {
+
+        }
+     }
 
     public static void inputMatriks(matriks M, int t) {
         // type 1 artinya persegi panjang
@@ -84,18 +116,23 @@ class MainProg {
             System.out.print("Masukkan nomor metode menginput matriks : ");
             int file = in.nextInt();
             if (file == 1) {
+                System.out.println("(Matriks yang terbaca adalah Augmented Matriks)");
                 System.out.print("Masukkan Nama File : ");
                 try {
+
                     M.BacaFileMatriks();
+                    System.out.println("Matriks yang terbaca adalah : ");
                     M.TulisMatriks();
                 } catch(Exception e) {
                     System.out.println(e);
                 }
             } else if (file == 2) {
-                System.out.println("keyboard");
-                if (t == 1) M.BacaMatriks();
+                if (t == 1) {
+                    System.out.println();
+                    System.out.println("(Masukkan matriks harus berbentuk Augmented)");
+                    M.BacaMatriks();
+                }
                 else if (t == 2) M.BacaMatriksPersegi();
-                M.TulisMatriks();
             } else {
                 System.out.println("Masukkan harus diantara 1 atau 2");
                 continue;

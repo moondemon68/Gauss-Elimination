@@ -30,7 +30,7 @@ public class matriks {
         this.kolom = in.nextInt();
 
         for(int i=1; i<=this.baris; i++){
-            for(int j=1; j<=this.kolom+1; j++ ){
+            for(int j=1; j<=this.kolom; j++ ){
                 this.Mat[i][j] = in.nextDouble();
             }
         }
@@ -119,7 +119,7 @@ public class matriks {
 
         for (int i = 1; i <= this.baris ; i++) {
             for(int j = 1 ; j <= this.kolom; j++) {
-                System.out.printf("%.2f ", this.Mat[i][j]);
+                System.out.printf("%.2f ", this.Mat[i][j] + 0.0);
             }
             System.out.println();
         }
