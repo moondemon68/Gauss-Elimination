@@ -29,6 +29,7 @@ public class matriks {
         System.out.print("Masukkan jumlah kolom: ");
         this.kolom = in.nextInt();
 
+        System.out.println("Masukkan Matriks");
         for(int i=1; i<=this.baris; i++){
             for(int j=1; j<=this.kolom; j++ ){
                 this.Mat[i][j] = in.nextDouble();
@@ -522,7 +523,6 @@ public class matriks {
             return Sol;
         } else {
             MAInv = MA;
-            MAInv.TulisMatriks();
             MAInv.Inverse();
             System.out.println("Inverse dari matriks koefisien:");
             MAInv.TulisMatriks();
