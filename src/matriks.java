@@ -1,6 +1,6 @@
-import java.io.FileReader;
-import java.util.Scanner;
-import java.util.Vector;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
 
 public class matriks {
 
@@ -57,7 +57,7 @@ public class matriks {
 
         Scanner in = new Scanner (System.in);
         String namaFile = in.nextLine();
-        namaFile += ".txt";
+        namaFile = "../test/" + namaFile + ".txt";
         FileReader fr = new FileReader(namaFile);
         int i;
         String str = "";
@@ -127,6 +127,41 @@ public class matriks {
 
     }
 
+
+    // Metode untuk write file
+    public void TulisFile(int type, double hasil, String solusi) {
+        // I.S : Type dan hasil sudah valid
+        // type = 1 untuk menulis matriks
+        // type = 2 untuk menulis hasil (bisa berupa determinan ataupun hasil interpolasi)
+        Scanner in = new Scanner (System.in);
+        System.out.print("Masukkan nama hasil output file yang diinginkan : ");
+        String namaFile = in.nextLine();
+        namaFile = "../test/" + namaFile + ".txt";
+        Formatter x = new Formatter();
+        try {
+            x = new Formatter(namaFile);
+        } catch (Exception e) {
+            System.out.println("Terjadi kesalahan saat membuat hasil output file");
+        }
+        String hasilString = Double.toString(hasil) + "\n";
+        if (type == 1) {
+            hasilString = "";
+            for (int i = 1; i <= this.baris; i++) {
+                for (int j = 1; j <= this.kolom; j++) {
+                    hasilString += Double.toString(this.Mat[i][j]) + (j == this.kolom ? "\n" : " ");
+                }
+            }
+            x.format("%s", hasilString);
+        } else if (type == 2) {
+            x.format("%s", hasilString);
+        } else if (type == 3) {
+            x.format("%s", solusi);
+        }
+        x.close();
+        System.out.println("Output berhasil disimpan!");
+    }
+
+
     public double hasilInterpolasi(int n, double x) {
         double cur = 1;
         double ret = 0;
@@ -162,15 +197,31 @@ public class matriks {
 
         System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
         double x = in.nextDouble();
-        System.out.println("Hasil dari interpolasinya adalah : " + this.hasilInterpolasi(n, x));
+        double hasil = this.hasilInterpolasi(n, x);
+        System.out.println("Hasil dari interpolasinya adalah : " + hasil);
 
+        while (true) {
+            System.out.println();
+            System.out.println("Simpan hasil ke dalam suatu file txt ?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            System.out.print("Pilih nomor jawaban : ");
+            int number = in.nextInt();
+            if (number == 1) {
+                this.TulisFile(2, hasil, "#");
+            } else if (number != 2) {
+                System.out.println("Masukkan harus antara 1 - 2");
+                continue;
+            }
+            break;
+        }
     }
 
     // Method untuk membaca interpolasi lewat file
     public void bacaInterpolasiFile() throws Exception {
         Scanner in = new Scanner (System.in);
         String namaFile = in.nextLine();
-        namaFile += ".txt";
+        namaFile = "../test/" + namaFile + ".txt";
         FileReader fr = new FileReader(namaFile);
         String str = "";
         int cc;
@@ -212,7 +263,23 @@ public class matriks {
 
         System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
         double xx = in.nextDouble();
-        System.out.println("Hasil dari interpolasinya adalah : " + this.hasilInterpolasi(n, xx));
+        double hasil = this.hasilInterpolasi(n, xx);
+        System.out.println("Hasil dari interpolasinya adalah : " + hasil);
+        while (true) {
+            System.out.println();
+            System.out.println("Simpan hasil ke dalam suatu file txt ?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            System.out.print("Pilih nomor jawaban : ");
+            int number = in.nextInt();
+            if (number == 1) {
+                this.TulisFile(2, hasil, "#");
+            } else if (number != 2) {
+                System.out.println("Masukkan harus antara 1 - 2");
+                continue;
+            }
+            break;
+        }
     }
 
     // Fungsi untuk mengeluarkan hasil transpos matriks
@@ -240,7 +307,6 @@ public class matriks {
             this.Mat[b][i] = this.Mat[0][i];
         }
     }
-
 
 
     //Method untuk mengalikan baris a sebesar x kali
@@ -601,20 +667,57 @@ public class matriks {
         if (NoSolution == 1) System.out.println("Tidak ada solusi");
         else {
             System.out.println("\nDidapat Solusi :");
+            String hasilSolusi = "";
             for (int i=1;i<=this.baris;i++) {
                 if (piv[i] == -1) continue;
                 System.out.printf("x%d = %.3f", piv[i], mul[i][0]);
+                hasilSolusi += "x" + Integer.toString(piv[i]) + " = " + Double.toString(mul[i][0]);
                 for (int j=1;j<=id[i][0];j++) {
-                    if (mul[i][j] > 0) System.out.print(" + ");
-                    else {
+                    if (mul[i][j] > 0) {
+                        System.out.print(" + ");
+                        hasilSolusi += " + ";
+                    } else {
                         System.out.print(" - ");
+                        hasilSolusi += " - ";
                         mul[i][j] *= -1;
                     }
                     System.out.printf("%.3fx%d", mul[i][j], id[i][j]);
+                    hasilSolusi += Double.toString(mul[i][j]) + "x" + Integer.toString(id[i][j]);
                 }
                 System.out.printf("\n");
+                hasilSolusi += "\n";
+            }
+            Scanner in = new Scanner(System.in);
+            while (true) {
+                System.out.println();
+                System.out.println("Simpan hasil ke dalam suatu file txt ?");
+                System.out.println("1. Ya");
+                System.out.println("2. Tidak");
+                System.out.print("Pilih nomor jawaban : ");
+                int number = in.nextInt();
+                if (number == 1) {
+                    this.TulisFile(3, -1, hasilSolusi);
+                } else if (number != 2) {
+                    System.out.println("Masukkan harus antara 1 - 2");
+                    continue;
+                }
+                break;
             }
         }
+    }
+
+    public matriks caraBalikanAdjoin() {
+        // I. S : Determinan matriks tidak 0
+        matriks ret = new matriks();
+        ret = this.copy();
+        Double kdet = 1 / this.Determinant();
+        ret = ret.buatAdjoin();
+        for (int i = 1; i <= ret.baris; i++) {
+            for (int j = 1; j <= ret.kolom; j++) {
+                ret.Mat[i][j] *= kdet;
+            }
+        }
+        return ret;
     }
 }
 

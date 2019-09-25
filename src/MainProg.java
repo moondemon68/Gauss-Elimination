@@ -23,7 +23,7 @@ class MainProg {
                 subMenu(M, 1);
             } else if (menu == 3) { // Matriks balikan
                 inputMatriks(M, 2);
-                tulisBalikkan(M);
+                InverseMatriks(M);
             } else if (menu == 4) { // Matriks kofaktor
                 inputMatriks(M, 2);
                 tulisKofaktor(M);
@@ -60,7 +60,7 @@ class MainProg {
         System.out.println("5. Adjoin");
         System.out.println("6. Interpolasi Polinom");
         System.out.println("7. Keluar\n");
-        System.out.print("Masukkan pilihan : ");
+        System.out.print("Masukkan pilihan nomor menu : ");
     }
 
     public static void subMenu(matriks M, int x) {
@@ -93,8 +93,10 @@ class MainProg {
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss adalah ");
             eliminasiGauss.TulisMatriks();
-            if (x == 1) System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
-            else {
+            if (x == 1) {
+                System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
+                simpanHasil(M, M.Determinant(), 2);
+            } else {
                 eliminasiGauss.BuatMatriksSolusi();
             }
         } else if (type == 2) {
@@ -103,8 +105,10 @@ class MainProg {
             System.out.println();
             System.out.println("Hasil dari Eliminasi Gauss-Jordan adalah");
             eliminasiGaussJordan.TulisMatriks();
-            if (x == 1) System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
-            else {
+            if (x == 1) {
+                System.out.println("Determinan dari matriksnya adalah " + M.Determinant());
+                simpanHasil(M, M.Determinant(), 2);
+            } else {
                 eliminasiGaussJordan.BuatMatriksSolusi();
             }
         } else if (type == 3) {
@@ -170,8 +174,7 @@ class MainProg {
                         M.TulisMatriks();
                     } catch(Exception e) {
                         System.out.println("Terjadi kesalahan dalam nama atau file matriks");
-                        System.out.println("Silahkan coba lagi\n");
-                        continue;
+                        break;
                     }
                     break;
                 }
@@ -188,6 +191,52 @@ class MainProg {
             }
             if (t == 2 && M.baris != M.kolom) {
                 System.out.println("Matriks harus merupakan matriks persegi.");
+                continue;
+            }
+            break;
+        }
+    }
+
+    public static void InverseMatriks(matriks M) {
+        if (M.Determinant() == 0) {
+            System.out.println("Matriks tidak memiliki invers karena memiliki determinan = 0");
+            return;
+        }
+        Scanner in = new Scanner (System.in);
+        matriks ret = M.copy();
+        while (true) {
+            System.out.println("\nPilih Metode dalam membalikkan matriks :");
+            System.out.println("1. Metode Gauss-Jordan");
+            System.out.println("2. Metode Matriks Adjoin");
+            System.out.print("Masukkan nomor pilihan metode : ");
+            int type = in.nextInt();
+            if (type == 1) {
+                System.out.println("Hasil matriks balikkan dengan metode gauss-jordan adalah : ");
+                ret.Inverse();
+                ret.TulisMatriks();
+                simpanHasil(ret, -1, 1);
+            } else if (type == 2) {
+                ret = ret.caraBalikanAdjoin();
+                System.out.println("Hasil matriks balikkan dengan metode adjoin adalah : ");
+                ret.TulisMatriks();
+                simpanHasil(ret, -1, 1);
+            } else {
+                System.out.println("nomor pilihan harus diantara 1 atau 2");
+                continue;
+            }
+            break;
+        }
+        while (true) {
+            System.out.println();
+            System.out.println("Coba metode lain ?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            System.out.print("Pilih nomor jawaban : ");
+            int number = in.nextInt();
+            if (number == 1) {
+                InverseMatriks(M);
+            } else if (number != 2) {
+                System.out.println("Masukkan harus antara 1 - 2");
                 continue;
             }
             break;
@@ -211,8 +260,7 @@ class MainProg {
                         M.bacaInterpolasiFile();
                     } catch(Exception e) {
                         System.out.println("Terjadi kesalahan dalam nama atau file interpolasi");
-                        System.out.println("Silahkan coba lagi\n");
-                        continue;
+                        break;
                     }
                     break;
                 }
@@ -224,6 +272,7 @@ class MainProg {
             }
             break;
         }
+
     }
 
     public static void tulisBalikkan(matriks M) {
@@ -241,11 +290,32 @@ class MainProg {
         matriks hasilKofaktor = M.buatKofaktor();
         System.out.println("\nHasil matriks kofaktornya adalah :");
         hasilKofaktor.TulisMatriks();
+        simpanHasil(hasilKofaktor, 0, 1);
     }
 
     public static void tulisAdjoin(matriks M) {
         matriks hasilAdjoin = M.buatAdjoin();
         System.out.println("\nHasil matriks adjoinnya adalah :");
         hasilAdjoin.TulisMatriks();
+        simpanHasil(hasilAdjoin, 0, 1);
+    }
+
+    public static void simpanHasil(matriks M, double hasil, int type) {
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            System.out.println();
+            System.out.println("Simpan hasil ke dalam suatu file txt ?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            System.out.print("Pilih nomor jawaban : ");
+            int number = in.nextInt();
+            if (number == 1) {
+                M.TulisFile(type, hasil, "#");
+            } else if (number != 2) {
+                System.out.println("Masukkan harus antara 1 - 2");
+                continue;
+            }
+            break;
+        }
     }
 }
