@@ -28,6 +28,9 @@ class MainProg {
             int file = in.nextInt();
             if (file == 1) {
                 System.out.println("file");
+                Scanner inputfile = new Scanner (System.in);
+                System.out.print("Masukkan nama file: ");
+                String filename = inputfile.nextLine();
             } else {
                 System.out.println("keyboard");
                 M.BacaMatriks();
