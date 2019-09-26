@@ -15,8 +15,8 @@ public class matriks {
                 this.Mat[i][j] = -999;
             }
         }
-        this.baris=0;
-        this.kolom=0;
+        this.baris = 0;
+        this.kolom = 0;
     }
 
     //Method untuk baca matriks
@@ -194,11 +194,56 @@ public class matriks {
         }
 
         this.ReducedEchelonForm();
+        for (int i = 1; i <= this.baris; i++) {
+            if (this.Mat[i][this.kolom] != 0) {
+                boolean notValid = true;
+                for (int j = 1; j <= this.kolom - 1; j++) {
+                    if (this.Mat[i][j] != 0) {
+                        notValid = false;
+                        break;
+                    }
+                }
+                if (notValid) {
+                    System.out.println("Tidak terdapat polinomial yang sesuai");
+                    return;
+                }
+            }
+        }
+
+        String hasilOutput = "";
+        System.out.println("Polinomilai yang dihasilkan adalah : ");
+        for (int i = 1; i <= this.baris; i++) {
+            Double cur = this.Mat[i][this.kolom];
+            if (cur < 0) {
+                if (i > 1) {
+                    System.out.print(" - ");
+                    hasilOutput += " - ";
+                    cur = -cur;
+                }
+            } else if (cur == 0) {
+                continue;
+            } else {
+                if (i > 1) {
+                    System.out.print(" + ");
+                    hasilOutput += " + ";
+                }
+            }
+            System.out.printf("%.3f", cur);
+            hasilOutput += Double.toString(cur);
+            if (i > 1) {
+                System.out.print("x^(" + (i - 1) + ")");
+                hasilOutput += "x^(" + Integer.toString(i - 1) + ")";
+            }
+        }
+        System.out.println();
+        hasilOutput += "\n";
 
         System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
         double x = in.nextDouble();
         double hasil = this.hasilInterpolasi(n, x);
         System.out.println("Hasil dari interpolasinya adalah : " + hasil);
+
+        hasilOutput += "Hasil dari interpolasi " + Double.toString(x) + " adalah : " + Double.toString(hasil);
 
         while (true) {
             System.out.println();
@@ -208,7 +253,7 @@ public class matriks {
             System.out.print("Pilih nomor jawaban : ");
             int number = in.nextInt();
             if (number == 1) {
-                this.TulisFile(2, hasil, "#");
+                this.TulisFile(3, -1, hasilOutput);
             } else if (number != 2) {
                 System.out.println("Masukkan harus antara 1 - 2");
                 continue;
@@ -260,11 +305,56 @@ public class matriks {
         }
 
         this.ReducedEchelonForm();
+        for (int i = 1; i <= this.baris; i++) {
+            if (this.Mat[i][this.kolom] != 0) {
+                boolean notValid = true;
+                for (int j = 1; j <= this.kolom - 1; j++) {
+                    if (this.Mat[i][j] != 0) {
+                        notValid = false;
+                        break;
+                    }
+                }
+                if (notValid) {
+                    System.out.println("Tidak terdapat polinomial yang sesuai");
+                    return;
+                }
+            }
+        }
+
+        String hasilOutput = "";
+        System.out.println("Polinomilai yang dihasilkan adalah : ");
+        for (int i = 1; i <= this.baris; i++) {
+            Double cur = this.Mat[i][this.kolom];
+            if (cur < 0) {
+                if (i > 1) {
+                    System.out.print(" - ");
+                    hasilOutput += " - ";
+                    cur = -cur;
+                }
+            } else if (cur == 0) {
+                continue;
+            } else {
+                if (i > 1) {
+                    System.out.print(" + ");
+                    hasilOutput += " + ";
+                }
+            }
+            System.out.printf("%.3f", cur);
+            hasilOutput += Double.toString(cur);
+            if (i > 1) {
+                System.out.print("x^(" + (i - 1) + ")");
+                hasilOutput += "x^(" + Integer.toString(i - 1) + ")";
+            }
+        }
+        System.out.println();
+        hasilOutput += "\n";
 
         System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
         double xx = in.nextDouble();
         double hasil = this.hasilInterpolasi(n, xx);
         System.out.println("Hasil dari interpolasinya adalah : " + hasil);
+        hasilOutput += "Hasil dari interpolasi nilai " + Double.toString(xx) + " adalah :\n";
+        hasilOutput += Double.toString(hasil);
         while (true) {
             System.out.println();
             System.out.println("Simpan hasil ke dalam suatu file txt ?");
@@ -273,7 +363,7 @@ public class matriks {
             System.out.print("Pilih nomor jawaban : ");
             int number = in.nextInt();
             if (number == 1) {
-                this.TulisFile(2, hasil, "#");
+                this.TulisFile(3, -1, hasilOutput);
             } else if (number != 2) {
                 System.out.println("Masukkan harus antara 1 - 2");
                 continue;
@@ -498,7 +588,7 @@ public class matriks {
 
     //Fungsi untuk menghasilkan matriks persegi dari suatu augmented matriks
     //yang diubah kolom ke-a nya dengan kolom paling kanan (digunakan untuk Cramer)
-    public matriks MatrixKolom(int a) {
+        public matriks MatrixKolom(int a) {
         matriks ret = new matriks();
         ret.baris = this.baris;
         ret.kolom = this.kolom - 1;
