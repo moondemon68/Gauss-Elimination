@@ -356,7 +356,7 @@ public class matriks {
         System.out.print("Masukkan nilai x untuk menaksir nilai fungsi : ");
         double xx = in.nextDouble();
         double hasil = this.hasilInterpolasi(n, xx);
-        System.out.println("Hasil dari interpolasinya adalah : " + hasil);
+        System.out.printf("Hasil dari interpolasinya adalah : %.0f",hasil);
         hasilOutput += "Hasil dari interpolasi nilai " + Double.toString(xx) + " adalah :\n";
         hasilOutput += Double.toString(hasil);
         while (true) {
