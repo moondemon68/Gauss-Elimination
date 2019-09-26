@@ -211,7 +211,7 @@ public class matriks {
         }
 
         String hasilOutput = "";
-        System.out.println("Polinomilai yang dihasilkan adalah : ");
+        System.out.println("Polinomial yang dihasilkan adalah : ");
         for (int i = 1; i <= this.baris; i++) {
             Double cur = this.Mat[i][this.kolom];
             if (cur < 0) {
@@ -322,7 +322,7 @@ public class matriks {
         }
 
         String hasilOutput = "";
-        System.out.println("Polinomilai yang dihasilkan adalah : ");
+        System.out.println("Polinomial yang dihasilkan adalah : ");
         for (int i = 1; i <= this.baris; i++) {
             Double cur = this.Mat[i][this.kolom];
             if (cur < 0) {
@@ -776,11 +776,14 @@ public class matriks {
         }
         if (NoSolution == 1) System.out.println("Tidak ada solusi");
         else {
+            Double [] sol = new Double[100];
+            for (int i=0;i<=99;i++) sol[i] = (double) -123456;
             System.out.println("\nDidapat Solusi :");
             String hasilSolusi = "";
             for (int i=1;i<=this.baris;i++) {
                 if (piv[i] == -1) continue;
                 System.out.printf("x%d = %.3f", piv[i], mul[i][0]);
+                sol[piv[i]] = mul[i][0];
                 hasilSolusi += "x" + Integer.toString(piv[i]) + " = " + Double.toString(mul[i][0]);
                 for (int j=1;j<=id[i][0];j++) {
                     if (mul[i][j] > 0) {
@@ -796,6 +799,18 @@ public class matriks {
                 }
                 System.out.printf("\n");
                 hasilSolusi += "\n";
+            }
+            boolean nosol = false;
+            for (int i=1;i<this.kolom;i++) {
+                if (sol[i] == (double) -123456) {
+                    nosol = true;
+                    System.out.printf("x%d ",i);
+                    hasilSolusi += "x" + Integer.toString(i) + " ";
+                }
+            }
+            if (nosol == true) {
+                System.out.printf("variabel bebas.\n");
+                hasilSolusi += "variabel bebas.\n";
             }
             Scanner in = new Scanner(System.in);
             while (true) {

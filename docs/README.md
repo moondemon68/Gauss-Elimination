@@ -4,7 +4,15 @@ Membuat Program Sistem Persamaan Linier, Determinan, dan Aplikasinya dengan meto
 # Author
 Muhammad Hasan - 13518012\
 Farras Mohammad Hibban Faddila - 13518017\
-Morgen Sudyanto - 13518093\
+Morgen Sudyanto - 13518093
 
 # How to run?
-`javac *.java && java MainProg`
+```
+cd src
+javac *.java && java MainProg (if both .class and .java is in src folder)
+
+OR
+
+cd bin
+java MainProg (if .class file is in bin folder)
+```
