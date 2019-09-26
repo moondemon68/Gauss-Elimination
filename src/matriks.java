@@ -634,7 +634,7 @@ public class matriks {
             Double curDet = persegiKeI.Determinant();
             System.out.print("x" + i + " = ");
             hasilSolusi += "x" + Integer.toString(i) + " = ";
-            double cur = curDet / detPersegi;
+            double cur = curDet / detPersegi + 0.0;
             System.out.printf("%.3f\n", cur);
             hasilSolusi += Double.toString(cur);
         }
