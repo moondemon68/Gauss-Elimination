@@ -534,11 +534,31 @@ public class matriks {
             return;
         }
 
+        String hasilSolusi = "";
         for (int i = 1; i <= persegi.kolom; i++) {
             matriks persegiKeI = MatrixKolom(i);
             Double curDet = persegiKeI.Determinant();
             System.out.print("x" + i + " = ");
-            System.out.printf("%.3f\n", curDet / detPersegi);
+            hasilSolusi += "x" + Integer.toString(i) + " = ";
+            double cur = curDet / detPersegi;
+            System.out.printf("%.3f\n", cur);
+            hasilSolusi += Double.toString(cur);
+        }
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            System.out.println();
+            System.out.println("Simpan hasil ke dalam suatu file txt ?");
+            System.out.println("1. Ya");
+            System.out.println("2. Tidak");
+            System.out.print("Pilih nomor jawaban : ");
+            int number = in.nextInt();
+            if (number == 1) {
+                this.TulisFile(3, -1, hasilSolusi);
+            } else if (number != 2) {
+                System.out.println("Masukkan harus antara 1 - 2");
+                continue;
+            }
+            break;
         }
     }
 

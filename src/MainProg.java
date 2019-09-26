@@ -131,8 +131,12 @@ class MainProg {
                 }
             }
         } else if (type == 4) {
-            System.out.println("\nHasil dari Metode Cramer adalah : ");
-            M.Cramer();
+            if (M.baris != M.kolom - 1) {
+                System.out.println("Baris dan kolom matriks koefisien tidak sama.");
+            } else {
+                System.out.println("\nHasil dari Metode Cramer adalah : ");
+                M.Cramer();
+            }
         }
         while (true) {
             System.out.println();
