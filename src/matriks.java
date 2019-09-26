@@ -212,10 +212,11 @@ public class matriks {
 
         String hasilOutput = "";
         System.out.println("Polinomial yang dihasilkan adalah : ");
+        boolean operand = false;
         for (int i = 1; i <= this.baris; i++) {
             Double cur = this.Mat[i][this.kolom];
             if (cur < 0) {
-                if (i > 1) {
+                if (i > 1 && operand) {
                     System.out.print(" - ");
                     hasilOutput += " - ";
                     cur = -cur;
@@ -223,7 +224,7 @@ public class matriks {
             } else if (cur == 0) {
                 continue;
             } else {
-                if (i > 1) {
+                if (i > 1 && operand) {
                     System.out.print(" + ");
                     hasilOutput += " + ";
                 }
@@ -234,6 +235,7 @@ public class matriks {
                 System.out.print("x^(" + (i - 1) + ")");
                 hasilOutput += "x^(" + Integer.toString(i - 1) + ")";
             }
+            if (!operand) operand = true;
         }
         System.out.println();
         hasilOutput += "\n";
@@ -323,10 +325,11 @@ public class matriks {
 
         String hasilOutput = "";
         System.out.println("Polinomial yang dihasilkan adalah : ");
+        boolean operand = false;
         for (int i = 1; i <= this.baris; i++) {
             Double cur = this.Mat[i][this.kolom];
             if (cur < 0) {
-                if (i > 1) {
+                if (i > 1 && operand) {
                     System.out.print(" - ");
                     hasilOutput += " - ";
                     cur = -cur;
@@ -334,7 +337,7 @@ public class matriks {
             } else if (cur == 0) {
                 continue;
             } else {
-                if (i > 1) {
+                if (i > 1 && operand) {
                     System.out.print(" + ");
                     hasilOutput += " + ";
                 }
@@ -345,6 +348,7 @@ public class matriks {
                 System.out.print("x^(" + (i - 1) + ")");
                 hasilOutput += "x^(" + Integer.toString(i - 1) + ")";
             }
+            if (!operand) operand = true;
         }
         System.out.println();
         hasilOutput += "\n";
